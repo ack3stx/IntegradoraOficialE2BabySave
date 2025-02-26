@@ -1,8 +1,8 @@
 <<<<<<< HEAD
-# Angular_Crud-API
-proyecto gael jared con crud + API
+# Proyecto Integradora
+proyecto Integrador Framworks + ApiRest + Desarrollo Movil IOS + IOT
 =======
-# Angular19
+# Practica De Framworks + ApiRest + Desarrollo Movil + IOT
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
 
