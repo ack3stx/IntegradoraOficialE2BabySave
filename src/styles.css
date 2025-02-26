@@ -1,3 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color: #333;
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-menu {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.custom-btn{
+    width: 100%;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+}
+
 /* You can add global styles to this file, and also import other style files */
 @import 'ngx-toastr/toastr';
 
