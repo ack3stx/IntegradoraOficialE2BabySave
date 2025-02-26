@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Proyecto Integradora
 proyecto Integrador Framworks + ApiRest + Desarrollo Movil IOS + IOT
 =======
