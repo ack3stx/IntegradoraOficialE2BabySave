@@ -65,42 +65,30 @@ For more information on using the Angular CLI, including detailed command refere
 
 
 
-                         4MMMMMMMMMMMML
-                       4MMMMMMMMMMMMMMMML
-                      MMMMMMMMMMMMMMMMMMML
-                     4MMMMMMMMMMMMMMMMMMMMM
-                    4MMMMMMMMMMMMMMMMMMMMMML
-                    MMMMP   MMMMMM   MMMMMMM
-                    MMMM MM  MMM  MM  MMMMMM
-                    MMMM MM  MMM  MM  MMMMML
-                     MMM MP,,,,,,,MM  MMMMMM
-                      MM,"          "MMMMMMP
-                      MMw           'MMMMMM
-                      MM"w         w MMMMMMML
-                      MM" w       w " MMMoMMML
-                     MMM " wwwwwww "  MMMMMMML
-                   MMMP   ".,,,,,,"     MMMMMMMML
-                  MMMP                    MMMMMMMML
-                MMMMM                      MMMMMMMML
-               MMMMM,,-''             ''-,,MMMMMMMMML
-              MMMMM                          MMMMMMMMML
-             MMMMM                            MMMMMMMMML
-            MMMMM                             MMMMMMMMMM
-            MMMM                               MMMMMMMMMM
-           MMMMM                               MMMMMMMMMML
-          MMMMM                                MMMMMMMMMMM
-         MMMMMM                                MMMMMMMMMMM
-         MMMMMMM                               MMMMMMMMMMM
-         """"MMMM                             MMMMMMMMMMP
-        "     ""MMM                            MMMMMMMMP
-   "" "         "MMMMMM                      """"MMMMMP"""
- "               "MMMMMMM                   ""   """"""   "
- "                ""MMMMMM                 M"             " ""
-  "                 "                   MMM"                  "
- "                   "M               MMMM"                   "
- "                    "MM        MMMMMMMMM"                ""
- "                    "MMMMMMMMMMMMMMMMMMM"              """
-  """"                "MMMMMMMMMMMMMMMMMM"           """"
-      """"""""       MMMMM               "        ""
-              """"""""                      """""""  Larry Ewing & r^2
-
+                 .88888888:.
+                88888888.88888.
+              .8888888888888888.
+              888888888888888888
+              88' _`88'_  `88888
+              88 88 88 88  88888
+              88_88_::_88_:88888
+              88:::,::,:::::8888
+              88`:::::::::'`8888
+             .88  `::::'    8:88.
+            8888            `8:888.
+          .8888'             `888888.
+         .8888:..  .::.  ...:'8888888:.
+        .8888.'     :'     `'::`88:88888
+       .8888        '         `.888:8888.
+      888:8         .           888:88888
+    .888:88        .:           888:88888:
+    8888888.       ::           88:888888
+    `.::.888.      ::          .88888888
+   .::::::.888.    ::         :::`8888'.:.
+  ::::::::::.888   '         .::::::::::::
+  ::::::::::::.8    '      .:8::::::::::::.
+ .::::::::::::::.        .:888:::::::::::::
+ :::::::::::::::88:.__..:88888:::::::::::'
+  `'.:::::::::::88888888888.88:::::::::'
+miK     `':::_:' -- '' -'-' `':_::::'`
+ 
