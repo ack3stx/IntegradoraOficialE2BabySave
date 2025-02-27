@@ -15,7 +15,7 @@
 
       <div class="remember-forget">
         <label><input type="checkbox">Remember me</label>
-        <a href="#">Forgot password?</a>
+        <a routerLink="/Password" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true}">Forgot password?</a>
       </div>
 
       <button type="button" class="btn" (click)="onlogin()">Login</button>

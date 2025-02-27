@@ -9,13 +9,18 @@ import { authTokenGuard } from './core/guards/auth-token.guard';
 import { loginGuard } from './core/guards/login.guard';
 import { DeleteComponent } from './Views/products/delete/delete.component';
 import { UpdateComponent } from './Views/products/update/update.component';
-
+import { PasswordRecoveryComponent } from './Views/auth/password-recovery/password-recovery.component';
 
 
 export const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent,
+        canActivate: [loginGuard]
+    },
+    {
+        path: 'Password',
+        component: PasswordRecoveryComponent,
         canActivate: [loginGuard]
     },
     {
