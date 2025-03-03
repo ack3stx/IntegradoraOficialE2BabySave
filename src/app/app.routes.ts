@@ -11,6 +11,7 @@ import { DeleteComponent } from './Views/products/delete/delete.component';
 import { UpdateComponent } from './Views/products/update/update.component';
 import { PasswordRecoveryComponent } from './Views/auth/password-recovery/password-recovery.component';
 import { ChartsComponent } from './Views/charts/charts.component';
+import { MonitorComponent } from './Views/monitor/monitor.component';
 
 export const routes: Routes = [
     {
@@ -67,6 +68,10 @@ export const routes: Routes = [
     {
         path: 'charts',
         component: ChartsComponent,
+    },
+    {
+        path: 'monitor',
+        component: MonitorComponent
     }
     
 ]
