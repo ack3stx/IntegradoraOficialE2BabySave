@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth/auth.service';
@@ -11,6 +11,14 @@ import { AuthService } from '../../../core/services/auth/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+
+  isScrolled = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    this.isScrolled = window.scrollY > 50;
+  }
+
   private router = inject(Router);
   private authService = inject(AuthService);
 

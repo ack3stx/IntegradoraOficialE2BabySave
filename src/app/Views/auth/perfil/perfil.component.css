@@ -1,0 +1,80 @@
+.custom-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.custom-profile-header {
+    position: relative;
+    background-image: url('../../../../../public/drawable/fondoint.png');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 120px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.custom-profile-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+}
+.custom-profile-picture {
+    position: relative;
+    z-index: 1;
+    margin-top: -75px;
+}
+.custom-profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.custom-profile-info {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin-top: 20px;
+}
+.custom-profile-info h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+.custom-profile-info p {
+    font-size: 1.1rem;
+    color: #ddd;
+    margin: 5px 0;
+}
+.custom-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.custom-card-body {
+    padding: 20px;
+}
+.custom-card-title {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+.custom-list-unstyled {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.custom-list-unstyled li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+.custom-list-unstyled i {
+    margin-right: 10px;
+    color: #6c757d;
+}
