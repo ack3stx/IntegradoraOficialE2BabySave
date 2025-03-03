@@ -27,7 +27,7 @@
 
 .carousel-inner img {
   width: 100%;
-  height: 70vh;
+  height: 65vh;
   object-fit: cover;
   object-position: bottom;
 }
@@ -52,40 +52,41 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
 
-.bus {
-  background-color: #d1d1d1; 
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+.baby {
+  border-top: 3px solid #d1ecf1;
+  background: #dce7f1;  
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
-.bus-container {
+.baby-container {
   padding: 3rem;
   border-radius: 14px;
-  background-color: #DADADA; 
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  background: #dce7f1;  
+  box-shadow: 8px 10px 16px rgba(0, 0, 0, 0.2);
   font-size: 1.5rem;
   color: #333; 
 }
 
-.bus-container h2 {
+.baby-container h2 {
   font-size: 1.4rem;
   margin-bottom: 1rem;
   text-align: justify;
   font-weight: 610;
 }
 
-.bus-container p {
+.baby-container p {
   font-size: 0.9rem;
   text-align: justify;
   line-height: 2;
   margin-bottom: 1.2rem;
 }
 
-.bus-content img {
+.baby-content img {
   max-width: 45%;
   height: auto;
   display: block;
@@ -95,20 +96,19 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.bus-content img:hover {
+.baby-content img:hover {
   transform: scale(1.05); 
 }
 
-
 .section-icons {
   position: relative;
-  /* background-image: url('img/MercedezC.png'); */
+  background-image: url('../../../../public/drawable/fondoint.png'); 
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  padding: 50px 20px; 
-  color: white; 
+  padding: 60px 20px; 
+  color: white;
 }
 
 .overlay {
@@ -117,29 +117,52 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8); 
+  background: rgba(0, 0, 0, 0.5); 
   z-index: 1;
 }
 
+.container {
+  position: relative;
+  z-index: 2;
+}
+
 .box-icons {
-  margin-bottom: 20px; 
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  height: 100%;
 }
 
 .box-icons .d-flex {
-  background-color: rgba(255, 255, 255, 0.12); 
-  border-radius: 5px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  background: rgba(154, 208, 255, 0.15); 
+  border-radius: 15px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  width: 100%;
+  min-height: 160px; 
+  display: flex;
+  align-items: center; 
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(5px);
 }
 
-.box-icons h3{
-  font-weight: 800;
-  font-size: 1rem; 
-}
-
-.box-icons p {
-  font-size: 0.8rem; 
+.box-icons .d-flex:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .custom-icon {
-  font-size: 1.5rem; 
+  font-size: 2.5rem;
+  color: #d4e2f0; 
+}
+
+.box-icons h3 {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.box-icons p {
+  font-size: 0.9rem;
+  color: #ddd;
 }
