@@ -10,7 +10,9 @@ import { loginGuard } from './core/guards/login.guard';
 import { DeleteComponent } from './Views/products/delete/delete.component';
 import { UpdateComponent } from './Views/products/update/update.component';
 import { PasswordRecoveryComponent } from './Views/auth/password-recovery/password-recovery.component';
-
+import { ChartsComponent } from './Views/charts/charts.component';
+import { MonitorComponent } from './Views/monitor/monitor.component';
+import { CodeFieldComponent } from './Views/auth/code-field/code-field.component';
 
 export const routes: Routes = [
     {
@@ -71,6 +73,12 @@ export const routes: Routes = [
     {
         path: 'monitor',
         component: MonitorComponent
-    }
+    },
+    {
+        path: 'Confirm_Acount',
+        component: CodeFieldComponent,
+        canActivate: [loginGuard]
+
+    },
     
 ]
