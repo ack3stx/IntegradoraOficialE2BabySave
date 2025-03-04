@@ -1,30 +1,23 @@
 <footer class="custom-footer">
     <div class="container">
         <div class="row">
-
             <div class="col-md-4 footer-brand">
                 <h3>BabySave</h3>
                 <p>Monitorea, protege y cuida a tu bebé con nuestra tecnología inteligente.</p>
             </div>
-
             <div class="col-md-4 footer-links">
                 <h4>Enlaces</h4>
                 <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Nosotros</a></li>
-                    <li><a href="#">Servicios</a></li>
-                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#" (click)="scrollToSection($event, 'inicio')">Inicio</a></li>
+                    <li><a href="#" (click)="scrollToSection($event, 'nosotros')">Nosotros</a></li>
+                    <li><a href="#" (click)="scrollToSection($event, 'servicios')">Servicios</a></li>
                 </ul>
             </div>
-
-            <div class="col-md-4 footer-social">
-                <h4>Síguenos</h4>
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-twitter-x"></i></a>
+            <div class="col-md-4 footer-image">
+                <h4>Nuestra Promesa</h4>
+                <p>Trabajamos cada día para brindarte la mejor seguridad y confort para tu bebé.</p>
             </div>
         </div>
-
         <div class="footer-bottom">
             <p>&copy; 2025 BabySave. Todos los derechos reservados.</p>
         </div>
