@@ -13,6 +13,7 @@ import { PasswordRecoveryComponent } from './Views/auth/password-recovery/passwo
 import { ChartsComponent } from './Views/charts/charts.component';
 import { MonitorComponent } from './Views/monitor/monitor.component';
 import { CodeFieldComponent } from './Views/auth/code-field/code-field.component';
+import { PerfilComponent } from './Views/auth/perfil/perfil.component';
 
 export const routes: Routes = [
     {
@@ -69,6 +70,10 @@ export const routes: Routes = [
     {
         path: 'charts',
         component: ChartsComponent,
+    },
+    {
+        path: 'perfil',
+        component: PerfilComponent,
     },
     {
         path: 'monitor',
