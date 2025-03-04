@@ -11,6 +11,21 @@ import { AuthService } from '../../../core/services/auth/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  ngOnInit(): void {
+    document.addEventListener('DOMContentLoaded', () => {
+      const navbarItems = document.querySelectorAll('.navbar-nav .nav-item .nav-link');
+      const navbarCollapse = document.querySelector('.navbar-collapse');
+    
+      navbarItems.forEach((item) => {
+        item.addEventListener('click', () => {
+          if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+            const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse);
+            bsCollapse.hide();
+          }
+        });
+      });
+    });
+  }
 
   isScrolled = false;
 
