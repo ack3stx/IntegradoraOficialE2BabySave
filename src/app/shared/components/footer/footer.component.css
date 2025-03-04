@@ -1,5 +1,5 @@
 .custom-footer {
-    background: #dce7f1;  
+    background: linear-gradient(to right, #e7f7fe, #d2effd); 
     padding: 40px 0;
     color: #333;
     text-align: center;
@@ -16,7 +16,7 @@
 }
 
 .footer-links h4,
-.footer-social h4 {
+.footer-image h4 {
     font-weight: 600;
     color: #0078d7;
 }
@@ -33,26 +33,16 @@
 .footer-links ul li a {
     text-decoration: none;
     color: #444;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .footer-links ul li a:hover {
     color: #0078d7;
-}
-
-.footer-social a {
-    color: #555;
-    font-size: 1.5rem;
-    margin: 0 10px;
-    transition: color 0.3s ease;
-}
-
-.footer-social a:hover {
-    color: #0078d7;
+    transform: translateY(-2px);
 }
 
 .footer-bottom {
-    margin-top: 20px;
+    margin-top: 18px;
     border-top: 1px solid #0078d7;
     padding-top: 15px;
     font-size: 0.85rem;
