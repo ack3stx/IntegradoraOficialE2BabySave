@@ -6,7 +6,8 @@
 }
 
 body{
-  background: #dce7f1 !important;
+  background: linear-gradient(to right, #e7f7fe, #d2effd)!important;
+  
 }
 
 .btn-group {
