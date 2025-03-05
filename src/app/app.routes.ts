@@ -14,6 +14,7 @@ import { ChartsComponent } from './Views/charts/charts.component';
 import { MonitorComponent } from './Views/monitor/monitor.component';
 import { CodeFieldComponent } from './Views/auth/code-field/code-field.component';
 import { PerfilComponent } from './Views/auth/perfil/perfil.component';
+import { PanelComponent } from './Views/Admin/panel/panel.component';
 
 export const routes: Routes = [
     {
@@ -85,6 +86,10 @@ export const routes: Routes = [
         canActivate: [loginGuard]
 
     },
+    {
+        path: 'admin',
+        component: PanelComponent
+    }
     /* {
         canMatch: [rutasGuard],
         path: '',
