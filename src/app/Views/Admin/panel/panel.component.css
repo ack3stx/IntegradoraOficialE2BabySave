@@ -91,6 +91,28 @@
     align-items: center;
 }
 
+.circle {
+    width: 80px;
+    height: 80px;
+    background: #66ccff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.circle i {
+    font-size: 30px;
+    color: white;
+}
+
+.circle-item p {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
 .fas.fa-circle {
     font-size: 50px;
     margin-bottom: 10px;
