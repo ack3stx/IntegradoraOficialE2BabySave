@@ -1,0 +1,87 @@
+body{
+    margin-top:20px;
+    background:#FAFAFA;
+}
+.order-card {
+    color: #fff;
+}
+
+.bg-c-blue {
+    background: linear-gradient(45deg, #73b7ff, #b3d9ff);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.card {
+    
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 25px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+
+.rounded-btn {
+    background-color: rgba(255, 255, 255, 0.2); /* Fondo sutil */
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.edit-btn {
+    color: #FFD700; /* Dorado */
+}
+
+.delete-btn {
+    color: #FF6666; /* Rojo suave */
+}
+
+.rounded-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-container {
+    display: flex;      
+    justify-content: end; 
+    gap: 10px;         
+    margin-top: 10px;  
+}
+
+.facircle{
+    background-color: transparent ;
+}
+
+.fasolid{
+    color: #FF6666;
+}
