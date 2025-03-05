@@ -27,12 +27,12 @@ export class NavbarComponent {
     });
   }
 
-  isScrolled = false;
+  // isScrolled = false;
 
-  @HostListener('window:scroll', [])
-  onWindowScroll(): void {
-    this.isScrolled = window.scrollY > 50;
-  }
+  // @HostListener('window:scroll', [])
+  // onWindowScroll(): void {
+  //   this.isScrolled = window.scrollY > 50;
+  // }
 
   private router = inject(Router);
   private authService = inject(AuthService);

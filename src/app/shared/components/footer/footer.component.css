@@ -1,8 +1,9 @@
 .custom-footer {
     background: linear-gradient(to right, #e7f7fe, #d2effd); 
+    text-align: center;
     padding: 40px 0;
     color: #333;
-    text-align: center;
+    border-top: 3px solid #d1ecf1;
 }
 
 .footer-brand h3 {
@@ -11,13 +12,13 @@
 }
 
 .footer-brand p {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #444;
 }
 
 .footer-links h4,
 .footer-image h4 {
-    font-weight: 600;
+    font-weight: 700;
     color: #0078d7;
 }
 
@@ -45,6 +46,6 @@
     margin-top: 18px;
     border-top: 1px solid #0078d7;
     padding-top: 15px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: #444;
 }

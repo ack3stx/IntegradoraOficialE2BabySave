@@ -11,12 +11,23 @@
     <div class="card custom-card shadow-sm">
         <div class="card-body custom-card-body">
             <h2 class="custom-card-title">Información Adicional</h2>
-            <ul class="list-unstyled custom-list-unstyled">
-                <li><i class='bi bi-calendar2-week'></i><strong> Último Ingreso:&nbsp;</strong> No disponible</li>
-                <li><i class='bi bi-credit-card'></i><strong> CURP:&nbsp;</strong> No disponible</li>
-                <li><i class='bi bi-gift'></i><strong> Fecha de Nacimiento:&nbsp;</strong> No disponible</li>
-                <li><i class='bi bi-file-earmark-text'></i><strong> RFC:&nbsp;</strong> No disponible</li>
-            </ul>
+            <form>
+                <div class="mb-3">
+                    <label for="email" class="form-label">
+                        <i class='bi bi-envelope me-2'></i> <strong>Correo Electrónico</strong>
+                    </label>
+                    <input type="email" class="form-control" id="email" value="correo@ejemplo.com" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">
+                        <i class='bi bi-key me-2'></i> <strong>Contraseña</strong>
+                    </label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" value="12345678" readonly>
+                        <button type="button" class="btn btn-primary">Editar</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
