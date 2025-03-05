@@ -14,6 +14,7 @@ import { ChartsComponent } from './Views/charts/charts.component';
 import { MonitorComponent } from './Views/monitor/monitor.component';
 import { CodeFieldComponent } from './Views/auth/code-field/code-field.component';
 import { PerfilComponent } from './Views/auth/perfil/perfil.component';
+import { RealtimechartsComponent } from './Views/real_time_charts/realtimecharts/realtimecharts.component';
 
 export const routes: Routes = [
     {
@@ -70,6 +71,10 @@ export const routes: Routes = [
     {
         path: 'charts',
         component: ChartsComponent,
+    },
+    {
+        path : 'live',
+        component : RealtimechartsComponent
     },
     {
         path: 'perfil',
