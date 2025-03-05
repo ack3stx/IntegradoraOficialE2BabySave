@@ -1,6 +1,6 @@
 .navbar a {
     font-weight: 600;
-    font-size: 0.9rem; 
+    font-size: 1rem; 
     color: #5a9bd3;
     position: relative;
     transition: all 0.3s ease;
@@ -9,7 +9,7 @@
 .custom-navbar {
     background: linear-gradient(to right, #e7f7fe, #d2effd);
     border-bottom: 3px solid #d1ecf1;
-    box-shadow: 0 3px 11px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
 }
 
 .logo-img{
@@ -27,8 +27,8 @@
     pointer-events: none;
     cursor: default;
     border-radius: 14px;
-    padding: 8px 16px;
-    box-shadow: inset 0 0 6px rgba(0, 160, 240, 0.9);
+    padding: 9px 10px;
+    box-shadow: inset 0 0 12px rgba(0, 160, 240, 0.8);
 }
 
 .nav-link::after {
