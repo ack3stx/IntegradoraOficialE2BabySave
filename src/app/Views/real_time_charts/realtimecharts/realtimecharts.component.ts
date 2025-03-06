@@ -36,6 +36,9 @@ export class RealtimechartsComponent implements OnInit {
 
     // Obtener datos iniciales y crear gráfico
     this.loadInitialData();
+
+    // Simular la selección del primer sensor
+    this.onSensorChange({ target: { value: '1' } });
   }
 
   private processSensorData(sensorData: any[]) {
