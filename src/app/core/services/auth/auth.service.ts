@@ -29,7 +29,7 @@ export class AuthService {
     this.router.navigateByUrl('login');
   }
 
-  private RemoverToken() {
+  public RemoverToken() {
     localStorage.removeItem('token');
   }
 
