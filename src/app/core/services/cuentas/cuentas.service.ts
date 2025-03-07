@@ -28,4 +28,9 @@ export class CuentasService {
     return this.http.get<any>(`${this.ruta}/${id}`, {});
   }
 
+  activarCuenta(id: number) {
+    this.ruta = environment.apiUrl + '/activar';
+    return this.http.get<any>(`${this.ruta}/${id}`, {});
+  }
+
 }

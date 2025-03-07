@@ -48,7 +48,15 @@ export class CuentasComponent implements OnInit {
     });
    }
    else{
-    console.log('No se puede desactivar la cuenta');
+    this.usuarios.activarCuenta(usuario.id).subscribe({
+      next: () => {
+        usuario.cuenta_activa = usuario.cuenta_activa ? 0 : 1;
+        this.cargarUsuarios();
+      },
+      error: (error) => {
+        console.error('Error al cambiar estado:', error);
+      }
+    });
    }
   }
 
