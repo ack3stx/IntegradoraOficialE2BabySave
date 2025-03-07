@@ -224,3 +224,35 @@
         padding: 8px 15px;
     }
 }
+
+.pagination {
+    gap: 5px;
+}
+
+.page-link {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.page-link:hover {
+    background-color: #66ccff;
+    color: white;
+}
+
+.page-item.active .page-link {
+    background-color: #66ccff;
+    border-color: #66ccff;
+}
+
+.page-item.disabled .page-link {
+    background-color: #f8f9fa;
+    color: #ccc;
+}
+
