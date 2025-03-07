@@ -8,6 +8,8 @@ import { CodeFieldComponent } from './Views/auth/code-field/code-field.component
 import { PerfilComponent } from './Views/auth/perfil/perfil.component';
 import { RealtimechartsComponent } from './Views/real_time_charts/realtimecharts/realtimecharts.component';
 import { PanelComponent } from './Views/Admin/panel/panel.component';
+import { CuentasComponent } from './Views/Admin/cuentas/cuentas.component';
+
 
 
 export const routes: Routes = [
@@ -41,5 +43,9 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: PanelComponent
+    },
+    {
+        path: 'admin/users',
+        component: CuentasComponent
     }
 ]
