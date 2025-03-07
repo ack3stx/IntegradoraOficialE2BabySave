@@ -6,6 +6,7 @@ import { Chart } from 'chart.js/auto';
 })
 export class ChartsServiceService {
 
+
   public chart: any;
   constructor() { }
 
