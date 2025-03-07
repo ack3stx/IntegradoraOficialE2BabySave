@@ -4,6 +4,8 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { LoginCredentials } from '../../../core/models/login-credentials';
 import { ToastrService } from 'ngx-toastr';
+import { jwtDecode } from 'jwt-decode';
+
 
 @Component({
   selector: 'app-login',
@@ -42,7 +44,23 @@ export class LoginComponent {
         next: (response) => {
           localStorage.setItem('token', response.token);
           this.toastr.success('Login exitoso');
-          this.router.navigate(['/dashboard']);
+          const token = ""+localStorage.getItem('token');
+          const decoded: any = jwtDecode(token);
+          const userRole = decoded.rol;
+          switch (userRole) {
+            case 1:
+              this.router.navigate(['/activar']);
+              break;
+            case 2:
+              this.router.navigate(['/dashboard']);
+              break;
+            case 3:
+              this.router.navigate(['/admin']);
+              break;
+            default:
+              this.router.navigate(['/login']);
+          }
+          
           this.FormularioLogin.reset();
         },
         error: (error) => {
