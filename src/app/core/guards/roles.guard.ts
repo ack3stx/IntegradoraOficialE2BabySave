@@ -16,25 +16,16 @@ export const rolesGuard = (rol: number): CanActivateFn => {
       }
     }
 
-    try {
-      const decoded: any = jwtDecode(token);
-      const userRole = decoded.rol ?? null;
+    const decoded: any = jwtDecode(token);
+    const userRole = decoded.rol ?? null;
 
-      if (rol === 0) {
-        router.navigate(['/']);
-        return false;
-      }
 
-      if (userRole === rol) {
-        return true;
-      } else {
-        router.navigate(['/']);
-        return false;
-      }
-    } catch (error) {
-      console.error('Error al decodificar el token:', error);
-      router.navigate(['/login']);
+    if (userRole === rol) {
+      return true;
+    } else {
+      router.navigate(['/']);
       return false;
     }
+
   };
 };

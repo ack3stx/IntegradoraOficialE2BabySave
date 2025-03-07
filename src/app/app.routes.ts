@@ -30,7 +30,6 @@ export const routes: Routes = [
     {
         path: '',
         component: WelcomeComponent,
-        canActivate : [rolesGuard(0)]
     },
     {
         canMatch: [rutasGuard],
