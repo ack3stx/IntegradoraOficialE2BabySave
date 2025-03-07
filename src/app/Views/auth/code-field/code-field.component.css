@@ -1,25 +1,111 @@
-.card {
-    border-radius: 1rem;
-    border: none;
-    margin-top: 8rem;
+.code-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  padding-top: 110px;
+  padding-bottom: 30px;
+  position: relative;
+  background-image: url('../../../../../public/drawable/fondoint.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-.card-body {
-    padding: 2rem;
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 0;
+}
+
+.card {
+  background: #fff;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.card-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+}
+
+.text-muted {
+  text-align: center;
+  font-size: 16px;
+}
+
+.code-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .code-inputs input {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-    border-radius: 0.5rem;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  transition: 0.3s ease;
+}
+
+.code-inputs input:focus {
+  border-color: #007bff;
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 0 12px rgba(0, 123, 255, 0.3);
 }
 
 .btn-primary {
-    padding: 0.8rem;
+  width: 100%;
+  padding: 14px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.form-control:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+.btn-primary:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 20px rgba(0, 91, 187, 0.4);
+  transform: translateY(-2px);
+}
+
+.text-muted a {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.text-muted a:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
