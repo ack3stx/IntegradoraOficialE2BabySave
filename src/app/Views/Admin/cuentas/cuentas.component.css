@@ -60,9 +60,9 @@
     display: inline-block;
 }
 
-.container{
+.admin-container{
+    padding: 80px;
     padding-top: 100px;
-    
 }
 
 .search-container {
@@ -255,4 +255,5 @@
     background-color: #f8f9fa;
     color: #ccc;
 }
+
 
