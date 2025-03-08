@@ -42,10 +42,11 @@ export class NavbarComponent {
     return !!localStorage.getItem('token');
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+  logout() {  
+    this.authService.RemoverToken();
+    return this.router.navigate(['/login']);
   }
+  
 
   Role(role: number): boolean {
     const token = localStorage.getItem('token');
@@ -65,7 +66,14 @@ export class NavbarComponent {
     }
   }
 
+  checarSesion()
+  {
+    const token = localStorage.getItem('token');
 
-
+    if (!token) {
+      return false;
+    }
+    return true
+  }
 
 }
