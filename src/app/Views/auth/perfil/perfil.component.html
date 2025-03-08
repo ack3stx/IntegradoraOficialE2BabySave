@@ -1,33 +1,85 @@
+<div class="lol">
+<div class="background-overlay"></div>
 <div class="custom-container mt-5">
     <div class="custom-profile-header text-center mb-4">
-        <div class="custom-profile-picture">
-            <img src='drawable/xdd.jpeg' class='img-fluid rounded-circle' alt='Foto de perfil'>
-        </div>
-        <div class="custom-profile-info mt-3">
-            <h1>Oswaldo</h1>
-            <p class='text-light'>Rol no disponible</p>
-        </div>
+      <div class="custom-profile-picture">
+        <img src='drawable/user_default.jpeg' class='img-fluid rounded-circle' alt='Foto de perfil'>
+      </div>
+      <div class="custom-profile-info mt-3">
+        <h1>{{ usuario ? usuario.name : 'Cargando...' }}</h1>
+        <p class='text-light'>{{ usuario ? rolTexto : 'Cargando...' }}</p>
+      </div>
     </div>
+  
     <div class="card custom-card shadow-sm">
-        <div class="card-body custom-card-body">
-            <h2 class="custom-card-title">Información Adicional</h2>
-            <form>
-                <div class="mb-3">
-                    <label for="email" class="form-label">
-                        <i class='bi bi-envelope me-2'></i> <strong>Correo Electrónico</strong>
-                    </label>
-                    <input type="email" class="form-control" id="email" value="correo@ejemplo.com" readonly>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">
-                        <i class='bi bi-key me-2'></i> <strong>Contraseña</strong>
-                    </label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="password" value="12345678" readonly>
-                        <button type="button" class="btn btn-primary">Editar</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+      <div class="card-body custom-card-body">
+        <h2 class="custom-card-title mb-4">Información Adicional</h2>
+        <form [formGroup]="form" (ngSubmit)="actualizarUsuario()">
+  
+          <div class="mb-3">
+            <label for="email" class="form-label">
+              <i class='bi bi-envelope me-2'></i> <strong>Email</strong>
+            </label>
+            <div class="input-group">
+              <span class="input-group-text bg-dark text-white">
+                <i class="bi bi-lock-fill"></i>
+              </span>
+              <input type="email" class="form-control bg-dark text-white" id="email" formControlName="email" readonly>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="name" class="form-label">
+              <i class='bi bi-person me-2'></i> <strong>Nombre</strong>
+            </label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-pencil-square"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                formControlName="name"
+                [readonly]="!editModeName"
+                [placeholder]="editModeName ? 'Ingrese su nuevo nombre' : ''"
+                [ngClass]="{'edit-mode': editModeName}"
+              >
+              <button type="button" class="btn btn-outline-primary" (click)="activarEdicionNombre()">
+                <i class="bi" [ngClass]="editModeName ? 'bi-x-circle' : 'bi-pencil'"></i>
+                {{ editModeName ? 'Cancelar' : 'Editar' }}
+              </button>
+            </div>
+          </div>
+  
+          <div class="mb-3">
+            <label for="password" class="form-label">
+              <i class='bi bi-key me-2'></i> <strong>Contraseña</strong>
+            </label>
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="bi bi-pencil-square"></i>
+              </span>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                formControlName="password"
+                [readonly]="!editModePassword"
+                [placeholder]="editModePassword ? 'Ingrese la nueva contraseña' : '*********'"
+                [ngClass]="{'edit-mode': editModePassword}"
+              >
+              <button type="button" class="btn btn-outline-primary" (click)="activarEdicionPassword()">
+                <i class="bi" [ngClass]="editModePassword ? 'bi-x-circle' : 'bi-pencil'"></i>
+                {{ editModePassword ? 'Cancelar' : 'Editar' }}
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success w-100 mt-3" [disabled]="!editModeName && !editModePassword">
+            <i class="bi bi-save me-2"></i> Actualizar
+          </button>
+        </form>
+      </div>
     </div>
+  </div>
 </div>
