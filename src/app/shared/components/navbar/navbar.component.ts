@@ -2,6 +2,7 @@ import { Component, inject, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth/auth.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-navbar',
@@ -37,14 +38,42 @@ export class NavbarComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
 
-  // Método para verificar si está logueado
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
 
-  // Método para cerrar sesión
-  logout(): void {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+  logout() {  
+    this.authService.RemoverToken();
+    return this.router.navigate(['/login']);
   }
+  
+
+  Role(role: number): boolean {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return role === 0;
+    }
+
+    try {
+      const decoded: any = jwtDecode(token);
+      const userRole = decoded.rol ?? 0;
+
+      return userRole === role;
+    } catch (error) {
+      console.error('Error al decodificar el token', error);
+      return false;
+    }
+  }
+
+  checarSesion()
+  {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return false;
+    }
+    return true
+  }
+
 }

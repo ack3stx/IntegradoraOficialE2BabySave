@@ -1,0 +1,28 @@
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirmar Acción</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onCancelar()"></button>
+            </div>
+            <div class="modal-body">
+                <p *ngIf="usuario?.cuenta_activa === 1">
+                    ¿Está seguro que desea desactivar la cuenta de <strong>{{usuario?.name}}</strong>?
+                </p>
+                <p *ngIf="usuario?.cuenta_activa === 0">
+                    ¿Está seguro que desea activar la cuenta de <strong>{{usuario?.name}}</strong>?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onCancelar()">
+                    Cancelar
+                </button>
+                <button type="button" class="btn" 
+                        [ngClass]="usuario?.cuenta_activa === 1 ? 'btn-danger' : 'btn-success'"
+                        (click)="onConfirmar()">
+                    {{usuario?.cuenta_activa === 1 ? 'Desactivar' : 'Activar'}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

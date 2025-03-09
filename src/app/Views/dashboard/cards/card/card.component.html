@@ -1,16 +1,31 @@
+<<<<<<< HEAD
 <div class="col-md-4 col-xl-3">
     <div class="card bg-c-blue order-card" style="cursor: pointer;" (click)="GuardarMonitor(item)">
+=======
+<div class="monitor-card">
+    <div class="card">
+>>>>>>> 6bf99249c389e9225e772162a65dae35c37a3e3b
         <div class="card-block">
-            <h2 style="text-align: center;"><fa-icon class="facircle fa-2xs" [icon]="faCircle"></fa-icon> {{item.Nombre_Monitor}} </h2>
-            <br>
-            <h4 class="text-center">{{item.Ubicacion}}</h4>
-            <br>
+            <h2>
+                <fa-icon class="facircle fa-2xs" [icon]="faCircle"></fa-icon>
+                {{ item.Nombre_Monitor }}
+            </h2>
+            <h4 class="text-center">{{ item.Ubicacion }}</h4>
+
             <div class="btn-container">
+<<<<<<< HEAD
             <button class="rounded-btn edit-btn"><fa-icon [icon]="faPen"></fa-icon></button>
             <button class="rounded-btn delete-btn"><fa-icon [icon]="faTrash"></fa-icon></button>
             <input type="hidden" value={{item.id}}>
+=======
+                <button class="rounded-btn edit-btn">
+                    <fa-icon [icon]="faPen"></fa-icon>
+                </button>
+                <button class="rounded-btn delete-btn">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+>>>>>>> 6bf99249c389e9225e772162a65dae35c37a3e3b
             </div>
-                
         </div>
     </div>
 </div>
