@@ -1,5 +1,5 @@
 <div class="col-md-4 col-xl-3">
-    <div class="card bg-c-blue order-card" style="cursor: pointer;">
+    <div class="card bg-c-blue order-card" style="cursor: pointer;" (click)="GuardarMonitor(item)">
         <div class="card-block">
             <h2 style="text-align: center;"><fa-icon class="facircle fa-2xs" [icon]="faCircle"></fa-icon> {{item.Nombre_Monitor}} </h2>
             <br>
@@ -8,6 +8,7 @@
             <div class="btn-container">
             <button class="rounded-btn edit-btn"><fa-icon [icon]="faPen"></fa-icon></button>
             <button class="rounded-btn delete-btn"><fa-icon [icon]="faTrash"></fa-icon></button>
+            <input type="hidden" value={{item.id}}>
             </div>
                 
         </div>

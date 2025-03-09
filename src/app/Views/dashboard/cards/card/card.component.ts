@@ -5,10 +5,11 @@ import { faPen} from '@fortawesome/free-solid-svg-icons';
 import {faCircle as faRegular} from '@fortawesome/free-regular-svg-icons';
 import {faCircle as faSolid} from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-card',
-  imports: [FontAwesomeModule,CommonModule],
+  imports: [FontAwesomeModule,CommonModule,RouterModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css'
 })
@@ -23,4 +24,11 @@ export class CardComponent {
   estadoBocina = true;
 
   @Input() item:any;
+
+
+  GuardarMonitor(item:any){
+
+    console.log(item.id)
+    const id = localStorage.setItem('id_monitor',item.id);
+  }
 }
