@@ -27,7 +27,8 @@ export class LoginComponent {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(1)
-    ])
+    ]),
+    rememberMe: new FormControl(false)
   });
 
 
@@ -42,10 +43,16 @@ export class LoginComponent {
       
       this.authService.login(credentials).subscribe({
         next: (response) => {
-          localStorage.setItem('token', response.token);
+
+          if(formValues.rememberMe){
+            localStorage.setItem('token', response.token);
+          }
+          else{
+            sessionStorage.setItem('token', response.token);  
+          }
+          
+          const decoded: any = jwtDecode(response.token);
           this.toastr.success('Login exitoso');
-          const token = ""+localStorage.getItem('token');
-          const decoded: any = jwtDecode(token);
           const userRole = decoded.rol;
           switch (userRole) {
             case 1:
@@ -64,8 +71,16 @@ export class LoginComponent {
           this.FormularioLogin.reset();
         },
         error: (error) => {
+          if(error.status == 403){
+            this.toastr.error('Cuenta No Vericada Favor De Revisar Su Correo', 'Error');
+          }
+          else if(error.status == 401){
+            this.toastr.error('Credenciales inválidas', 'Error');
+          }
+          else{
+            this.toastr.error('Algo Salio Mal','Error')
+          }
           console.log(error);
-          this.toastr.error('Credenciales inválidas', 'Error');
         }
       });
     }

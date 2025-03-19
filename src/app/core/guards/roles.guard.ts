@@ -1,11 +1,13 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
+import { AuthService } from '../services/auth/auth.service';
 
 export const rolesGuard = (rol: number): CanActivateFn => {
   return () => {
     const router = inject(Router);
-    const token = localStorage.getItem('token');
+    const auth = inject(AuthService);
+    const token = auth.LeerToken();
 
     if (!token) {
       if (rol === 0) {

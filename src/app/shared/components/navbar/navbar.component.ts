@@ -39,7 +39,9 @@ export class NavbarComponent {
   private authService = inject(AuthService);
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    const token = this.authService.LeerToken();
+
+    return !!token;
   }
 
   logout() {  
@@ -49,7 +51,7 @@ export class NavbarComponent {
   
 
   Role(role: number): boolean {
-    const token = localStorage.getItem('token');
+    const token = this.authService.LeerToken();
 
     if (!token) {
       return role === 0;
@@ -68,7 +70,7 @@ export class NavbarComponent {
 
   checarSesion()
   {
-    const token = localStorage.getItem('token');
+    const token = this.authService.LeerToken();
 
     if (!token) {
       return false;

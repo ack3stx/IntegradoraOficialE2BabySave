@@ -31,10 +31,17 @@ export class AuthService {
 
   public RemoverToken() {
     localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   }
 
-  private LeerToken(): string | null {
-    return localStorage.getItem('token');
+  public LeerToken(): string | null {
+    const sessionToken = sessionStorage.getItem('token');
+    if (sessionToken) {
+      return sessionToken;
+    }
+    else{
+      return localStorage.getItem('token');
+    }
   }
 
   Autenticado(): boolean {
