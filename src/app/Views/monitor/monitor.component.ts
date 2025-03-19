@@ -1,79 +1,87 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MonitorService } from '../../core/services/monitores/monitor.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-monitor-creator',
+  selector: 'app-monitor-form',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './monitor.component.html',
   styleUrls: ['./monitor.component.css']
 })
-export class MonitorComponent {
+export class MonitorComponent implements OnInit {
   monitorForm: FormGroup;
+  isEditMode = false;
+  monitorId?: number;
+
   sensors = [
-    { name: 'Temperatura', value: 'temperatura', checked: false },
-    { name: 'Calidad del Aire', value: 'calidadAire', checked: false },
-    { name: 'Nivel de Luz', value: 'nivelLuz', checked: false },
-    { name: 'Estado del Bebé', value: 'estadoBebe', checked: false },
-    { name: 'Movimiento del Bebé', value: 'movimientoBebe', checked: false }
+    { id: 2, name: 'Temperatura', checked: false },
+    { id: 1, name: 'Calidad del Aire', checked: false },
+    { id: 5, name: 'Nivel de Luz', checked: false },
+    { id: 4, name: 'Estado del Bebé', checked: false },
+    { id: 3, name: 'Movimiento del Bebé', checked: false }
   ];
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private monitorService: MonitorService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.monitorForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(5)]],
       ubicacion: ['']
     });
   }
 
-  crearMonitor() {
-    if (this.monitorForm.invalid) return;
-    const monitorData = this.monitorForm.value;
-    const token = localStorage.getItem('token');
-  
-    this.http.post<{ id: number; nombre: string }>(
-      environment.apiUrl + '/monitor',
-      monitorData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    ).subscribe(response => {
-        console.log('Monitor creado:', response);
-        this.agregarSensores(response.id);
-      }, error => {
-        console.error('Error al crear el monitor', error);
-      });
+  ngOnInit(): void {
+    const id = this.route.snapshot.params['id'];
+    if (id) {
+      this.isEditMode = true;
+      this.monitorId = +id;
+      this.loadMonitor(this.monitorId);
+    }
   }
-  
 
-  agregarSensores(monitorId: number) {
-    const token = localStorage.getItem('token');
-  
-    this.sensors.filter(s => s.checked).forEach(sensor => {
-      this.http.post(
-        environment.apiUrl + '/sensor/agregar',
-        { monitorId, sensor: sensor.value },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      ).subscribe(() => {
-          console.log(`Sensor ${sensor.name} agregado al monitor ${monitorId}`);
-        }, error => {
-          console.error(`Error al agregar sensor ${sensor.name}`, error);
-        });
+  loadMonitor(id: number): void {
+    this.monitorService.getMonitor(id).subscribe(monitor => {
+      this.monitorForm.patchValue(monitor);
+      this.loadSensores(id);
     });
   }
-  
-}
 
-bootstrapApplication(MonitorComponent);
+  loadSensores(idMonitor: number): void {
+    this.monitorService.getSensoresDeMonitor(idMonitor).subscribe(sensorIds => {
+      this.sensors.forEach(sensor => {
+        sensor.checked = sensorIds.includes(sensor.id);
+      });
+    });
+  }
+
+  onSubmit(): void {
+    if (this.monitorForm.invalid) return;
+
+    const monitorData = this.monitorForm.value;
+
+    if (this.isEditMode && this.monitorId) {
+      this.monitorService.updateMonitor(this.monitorId, monitorData).subscribe(() => {
+        this.actualizarSensores(this.monitorId!);
+        this.router.navigate(['/monitores']);
+      });
+    } else {
+      this.monitorService.createMonitor(monitorData).subscribe(response => {
+        this.actualizarSensores(response.id);
+        this.router.navigate(['/monitores']);
+      });
+    }
+  }
+
+  actualizarSensores(monitorId: number): void {
+    this.sensors.filter(s => s.checked).forEach(sensor => {
+      this.monitorService.agregarSensor(monitorId, sensor.id).subscribe();
+    });
+  }
+}
