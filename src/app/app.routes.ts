@@ -5,6 +5,7 @@ import { WelcomeComponent } from './Views/welcome/welcome.component';
 import { PasswordRecoveryComponent } from './Views/auth/password-recovery/password-recovery.component';
 import { rolesGuard } from './core/guards/roles.guard';
 import { rutasGuard } from './core/guards/rutas.guard';
+import { DashboardComponent } from './Views/dashboard/dashboard/dashboard.component';
 
 export const routes: Routes = [
     {
@@ -30,6 +31,7 @@ export const routes: Routes = [
     {
         path: '',
         component: WelcomeComponent,
+        canActivate : [rolesGuard(0)]
     },
     {
         canMatch: [rutasGuard],
