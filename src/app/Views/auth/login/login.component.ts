@@ -78,7 +78,7 @@ export class LoginComponent {
             this.toastr.error('Credenciales inválidas', 'Error');
           }
           else{
-            this.toastr.error('Algo Salio Mal','Error')
+            this.toastr.error(error);
           }
           console.log(error);
         }
