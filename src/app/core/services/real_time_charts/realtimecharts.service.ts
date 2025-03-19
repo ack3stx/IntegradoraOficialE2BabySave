@@ -50,4 +50,8 @@ export class RealtimechartsService {
   updateApiUrl(sensorId: number) {
     this.apiUrl = `${environment.apiUrl}/sensor-data/${sensorId}`;
   }
+
+  getSensors(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/sensores`);
+  }
 }

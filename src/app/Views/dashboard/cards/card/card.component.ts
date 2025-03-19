@@ -5,6 +5,7 @@ import { faPen} from '@fortawesome/free-solid-svg-icons';
 import {faCircle as faRegular} from '@fortawesome/free-regular-svg-icons';
 import {faCircle as faSolid} from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -23,4 +24,10 @@ export class CardComponent {
   estadoBocina = true;
 
   @Input() item:any;
+
+  constructor(private router: Router) { }
+
+  navigateToLive(){
+    this.router.navigate(['/live', this.item.id]);
+  }
 }

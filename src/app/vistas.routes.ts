@@ -23,7 +23,7 @@ export const routes: Routes = [
         canActivate : [rolesGuard(2)]
     },
     {
-        path : 'live',
+        path : 'live/:id',
         component : RealtimechartsComponent,
         canActivate : [rolesGuard(2)]
     },

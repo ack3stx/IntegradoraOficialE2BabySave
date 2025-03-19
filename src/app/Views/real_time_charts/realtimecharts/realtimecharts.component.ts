@@ -84,4 +84,16 @@ export class RealtimechartsComponent implements OnInit {
     this.chartsService.updateApiUrl(sensorId);
     this.loadInitialData(); // Cargar datos del nuevo sensor
   }
+
+  getIdMonitor() {
+    const urlSegments = window.location.pathname.split('/');
+    const monitorId = urlSegments[urlSegments.length - 1];
+    this.selectedSensorId = parseInt(monitorId, 10);
+  }
+
+  getSensors() {
+    this.chartsService.getSensors().subscribe((response: any) => {
+      this.data_sensor = response.sensors;
+    });
+  }
 }
