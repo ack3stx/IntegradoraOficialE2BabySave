@@ -1,9 +1,6 @@
-<br><br><br><br>
-<div class="container">
-  <div class="row">
-          <app-card *ngFor="let item of monitores" [item]="item"></app-card>
-          <app-agregar></app-agregar>
-         
+<div class="dashboard-container">
+  <div class="background-overlay"></div>
+  <div class="monitor-container">
+    <app-card *ngFor="let item of monitores" [item]="item"></app-card>
+    <app-agregar></app-agregar>
   </div>
-</div>
-<br><br><br><br>

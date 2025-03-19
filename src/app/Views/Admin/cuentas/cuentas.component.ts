@@ -3,6 +3,7 @@ import { CuentasService } from '../../../core/services/cuentas/cuentas.service';
 import { Usuario } from '../../../core/models/usuario';
 import { CommonModule } from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-cuentas',
@@ -12,6 +13,28 @@ import {FormsModule} from '@angular/forms';
 })
 export class CuentasComponent implements OnInit {
 
+  usuarioSeleccionado: any = null;
+
+  seleccionarUsuario(usuario: Usuario) {
+    this.usuarioSeleccionado = usuario;
+  }
+
+  onConfirmarCambioEstado() {
+    if (this.usuarioSeleccionado) {
+      this.cambiarEstado(this.usuarioSeleccionado);
+      this.cerrarModal();
+    }
+  }
+
+
+  cerrarModal() {
+    const modal = document.getElementById('confirmModal');
+    if (modal) {
+      const modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance?.hide();
+    }
+    this.usuarioSeleccionado = null;
+  }
   users: Usuario[] = [];
 
   filtroEstado: string = 'todos';
@@ -87,8 +110,5 @@ export class CuentasComponent implements OnInit {
       this.paginaActual = pagina;
     }
   }
-
-
-  
 
 }

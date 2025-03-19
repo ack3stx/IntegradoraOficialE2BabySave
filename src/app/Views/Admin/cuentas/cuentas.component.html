@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="admin-container mt-4">
     <div class="chart-title mb-4">Gestión de Usuarios</div>
     
     <div class="filters-container mb-4">
@@ -56,12 +56,14 @@
                     <td>
                     <button class="btn" 
                             [ngClass]="usuario.cuenta_activa ? 'btn-danger' : 'btn-success'"
-                            (click)="cambiarEstado(usuario)">
-                            <i class="bi" [ngClass]="usuario.cuenta_activa ? 'bi-person-x-fill' : 'bi-person-check-fill'"></i>
-                            <span class="button-text">
-                                {{ usuario.cuenta_activa ? 'Desactivar' : 'Activar' }}
-                            </span>
-                        </button>
+                            data-bs-toggle="modal" 
+                            data-bs-target="#confirmModal"
+                            (click)="seleccionarUsuario(usuario)">
+                        <i class="bi" [ngClass]="usuario.cuenta_activa ? 'bi-person-x-fill' : 'bi-person-check-fill'"></i>
+                        <span class="button-text">
+                            {{ usuario.cuenta_activa ? 'Desactivar' : 'Activar' }}
+                        </span>
+                    </button>
                     </td>
                 </tr>
             </tbody>
@@ -89,6 +91,35 @@
                     </li>
                 </ul>
             </nav>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmModal" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirmar Acción</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p *ngIf="usuarioSeleccionado?.cuenta_activa === 1">
+                        ¿Está seguro que desea desactivar la cuenta de <strong>{{usuarioSeleccionado?.name}}</strong>?
+                    </p>
+                    <p *ngIf="usuarioSeleccionado?.cuenta_activa === 0">
+                        ¿Está seguro que desea activar la cuenta de <strong>{{usuarioSeleccionado?.name}}</strong>?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn" data-bs-dismiss="modal"
+                            [ngClass]="usuarioSeleccionado?.cuenta_activa === 1 ? 'btn-danger' : 'btn-success'"
+                            (click)="onConfirmarCambioEstado()">
+                        {{usuarioSeleccionado?.cuenta_activa === 1 ? 'Desactivar' : 'Activar'}}
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
