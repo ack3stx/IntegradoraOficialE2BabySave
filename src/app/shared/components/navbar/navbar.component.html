@@ -10,7 +10,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar-start">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-2 scrollable-menu">
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="Role(0)">
               <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
             </li>
             <li class="nav-item" *ngIf="Role(0)">
@@ -21,9 +21,6 @@
             </li>
             <li class="nav-item" *ngIf="Role(2)">
               <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
-            </li>
-            <li class="nav-item" *ngIf="Role(2)">
-              <a class="nav-link" routerLink="/live" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">En vivo</a>
             </li>
             <li class="nav-item" *ngIf="Role(2)">
               <a class="nav-link" routerLink="/perfil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
