@@ -8,11 +8,18 @@ import { environment } from '../../../../../environments/environment';
 })
 export class MonitorServiceService {
 
-  ruta = environment.apiUrl + '/monitores/activos';
+  ruta = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
-  obtenerMonitores() {
+  obtenerMonitoresActivos() {
+    this.ruta = environment.apiUrl + '/monitores/activos';
+    console.log(this.ruta);
+    return this.http.get<MonitorModel[]>(this.ruta);
+  }
+
+  obtenerMonitoresInactivos() {
+    this.ruta = environment.apiUrl + '/monitores/menos/activos/';
     return this.http.get<MonitorModel[]>(this.ruta);
   }
 }
