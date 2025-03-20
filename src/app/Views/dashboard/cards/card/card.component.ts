@@ -25,9 +25,13 @@ export class CardComponent {
 
   @Input() item:any;
 
+  constructor(private router: Router) { }
+
+  navigateToLive(){
+    this.router.navigate(['/live', this.item.id]);
+  }
 
   GuardarMonitor(item:any){
-
     console.log(item.id)
     const id = localStorage.setItem('id_monitor',item.id);
   }

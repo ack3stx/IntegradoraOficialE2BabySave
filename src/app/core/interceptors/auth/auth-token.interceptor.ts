@@ -1,8 +1,15 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { AuthService } from '../../services/auth/auth.service';
+import { empty } from 'rxjs';
+import { inject } from '@angular/core';
 
 export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
   // OBTENEMOS EL TOKEN DEL LOCALSTORAGE
-  const token = localStorage.getItem('token');
+
+  
+  const authService = inject(AuthService);
+  
+  const token = authService.LeerToken();  
 
   // SU HAY UN TOKEN 
   if (token) {
