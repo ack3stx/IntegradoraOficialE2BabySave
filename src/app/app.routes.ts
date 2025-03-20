@@ -6,6 +6,8 @@ import { PasswordRecoveryComponent } from './Views/auth/password-recovery/passwo
 import { rolesGuard } from './core/guards/roles.guard';
 import { rutasGuard } from './core/guards/rutas.guard';
 import { DashboardComponent } from './Views/dashboard/dashboard/dashboard.component';
+import { MonitorComponent } from './Views/monitor/monitor.component';
+import { MonitoresComponent } from './Views/Admin/monitores/monitores.component';
 
 export const routes: Routes = [
     {
@@ -32,6 +34,10 @@ export const routes: Routes = [
         path: '',
         component: WelcomeComponent,
         canActivate : [rolesGuard(0)]
+    },
+    {
+        path:"admin/monitores",
+        component: MonitoresComponent,
     },
     {
         canMatch: [rutasGuard],

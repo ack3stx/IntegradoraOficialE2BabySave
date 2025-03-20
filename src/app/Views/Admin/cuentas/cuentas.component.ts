@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CuentasService } from '../../../core/services/cuentas/cuentas.service';
+import { CuentasService } from '../../../core/services/admin/cuentas/cuentas.service';
 import { Usuario } from '../../../core/models/usuario';
 import { CommonModule } from '@angular/common';
 import {FormsModule} from '@angular/forms';
