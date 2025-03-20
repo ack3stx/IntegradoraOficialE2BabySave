@@ -12,6 +12,9 @@ import { jwtDecode } from 'jwt-decode';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  private router = inject(Router);
+  private authService = inject(AuthService);
+
   ngOnInit(): void {
     document.addEventListener('DOMContentLoaded', () => {
       const navbarItems = document.querySelectorAll('.navbar-nav .nav-item .nav-link');
@@ -19,24 +22,11 @@ export class NavbarComponent {
     
       navbarItems.forEach((item) => {
         item.addEventListener('click', () => {
-          if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-            const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse);
-            bsCollapse.hide();
-          }
+          this.closeMenu(); // Llama al nuevo método para cerrar el menú
         });
       });
     });
   }
-
-  // isScrolled = false;
-
-  // @HostListener('window:scroll', [])
-  // onWindowScroll(): void {
-  //   this.isScrolled = window.scrollY > 50;
-  // }
-
-  private router = inject(Router);
-  private authService = inject(AuthService);
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
@@ -46,7 +36,6 @@ export class NavbarComponent {
     this.authService.RemoverToken();
     return this.router.navigate(['/login']);
   }
-  
 
   Role(role: number): boolean {
     const token = localStorage.getItem('token');
@@ -66,14 +55,28 @@ export class NavbarComponent {
     }
   }
 
-  checarSesion()
-  {
+  checarSesion() {
     const token = localStorage.getItem('token');
 
     if (!token) {
       return false;
     }
-    return true
+    return true;
   }
 
+  closeMenu(): void {
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+      const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse);
+      bsCollapse.hide();
+    }
+  }
+  
+  toggleMenu(): void {
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    if (navbarCollapse) {
+      const bsCollapse = new (window as any).bootstrap.Collapse(navbarCollapse, { toggle: true });
+      bsCollapse.toggle();
+    }
+  }
 }
