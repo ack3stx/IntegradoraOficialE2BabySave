@@ -35,4 +35,8 @@ export class CardComponent {
     console.log(item.id)
     const id = localStorage.setItem('id_monitor',item.id);
   }
+
+  updateMonitor(id: number): void {
+    this.router.navigate(['monitor/editar', id]);
+  }
 }
