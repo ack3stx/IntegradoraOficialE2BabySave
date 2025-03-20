@@ -32,6 +32,20 @@ body{
     z-index: 2;
 }
 
+::placeholder {
+  color: #888 !important;
+  font-style: italic; 
+}
+
+/* select:invalid {
+  color: #888 !important;
+  font-style: italic !important; 
+}
+
+select option {
+  color: #ffffff !important; 
+} */
+
 /* You can add global styles to this file, and also import other style files */
 
 /* Personalización de colores para los toasts */

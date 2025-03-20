@@ -4,87 +4,105 @@ import { Router, RouterModule } from '@angular/router';
 import { RegisterService } from '../../../core/services/auth/register.service';
 import { RegisterCredentials } from '../../../core/models/register-credentials';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-register',    // Cómo se usará en el HTML
-  imports: [ReactiveFormsModule, // Importa el módulo de formularios reactivos
-    RouterModule, // Importa el módulo de rutas 
-  ],
-  templateUrl: './register.component.html',    // Vista HTML
-  styleUrls: ['./register.component.css']      // Estilos CSS
+  selector: 'app-register',    
+  imports: [ReactiveFormsModule, RouterModule, CommonModule],
+  templateUrl: './register.component.html',  
+  styleUrls: ['./register.component.css']      
 })
 
 export class RegisterComponent {
-  // inject() obtiene una instancia del servicio Router
   private router = inject(Router);
   private toastr = inject(ToastrService);
   private registerService = inject(RegisterService);
 
-  // Formulario reactivo con validaciones
   FormularioRegister = new FormGroup({
     name: new FormControl('', [
       Validators.required,
-      Validators.minLength(3)
+      Validators.minLength(3),
+      Validators.maxLength(50)
     ]),
     email: new FormControl('', [
       Validators.required,
-      Validators.email
+      Validators.email,
+      Validators.maxLength(50)
     ]),
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(8)
+      Validators.minLength(6)
     ])
   });
-  
-  // Constructor que recibe instancias de Router, RegisterService y ToastrService
-  // y las asigna a las variables privadas router, registerService y toastr.
-  // Se comenta porque se está usando la función inject() para obtener las instancias.
-/*
-  constructor(router: Router, registerService: RegisterService, toastr: ToastrService ) {
-    this.router = router;
-    this.registerService = registerService;
-    this.toastr = toastr;
 
-   }
-*/
-
-
-  //El subscribe es como un "escuchador" que espera a que algo suceda.
-  //Si la respuesta es exitosa, se muestra un mensaje de alerta
-  // y se redirige al usuario a la página de inicio de sesión. 
-  //Respuestas exitosas (códigos 2XX) activan el next:
-  //Respuestas de error (códigos 4XX o 5XX) activan el error:
+  isSubmitting = false; 
 
   onRegister() {
     if (this.FormularioRegister.valid) {
+      this.isSubmitting = true; 
+  
       const formValues = this.FormularioRegister.value;
-
       const registerData: RegisterCredentials = {
         name: formValues.name || '',
         email: formValues.email || '',
         password: formValues.password || ''
       };
-      
+  
       this.registerService.register(registerData).subscribe({
-        next: (response) => {
-          console.log('Server response:', response);
-          this.toastr.success('Registro exitoso');
+        next: () => {
+          this.toastr.success('Registro exitoso y correo de activación enviado', '', {timeOut: 10000});
+          this.toastr.info('Revisa tu correo electrónico para activar tu cuenta', '', {timeOut: 10000});
           this.router.navigate(['/login']);
           this.FormularioRegister.reset();
+          this.isSubmitting = false; 
         },
         error: (error) => {
-          console.log('Error completo:', error);
+          this.isSubmitting = false; 
+  
           if (error.status === 422) {
-            console.log('Error de validación:', error.error);
-            this.toastr.error('Error de validación', 'Error');
+            const errorDetails = error.error.error;
+            if (errorDetails.includes('email')) {
+              this.toastr.error('El correo electrónico ya está registrado', 'Error');
+            } else {
+              this.toastr.error(`${errorDetails}`, 'Error');
+            }
           } else {
             this.toastr.error('Error en el registro', 'Error');
           }
         }
       });
+    } else {
+      this.showValidationErrors();
     }
-    else {
-      this.toastr.error('Datos inválidos', 'Error');
+  }
+  
+  private showValidationErrors() {
+    const controls = this.FormularioRegister.controls;
+    const anyFieldEmpty = !controls.name.value || !controls.email.value || !controls.password.value;
+
+    if (anyFieldEmpty) {
+      this.toastr.error('Completa todos los campos', 'Error');
+      return;
+    }
+
+    if (controls.name.errors) {
+      if (controls.name.errors['minlength']) {
+        this.toastr.error('El nombre debe tener al menos 3 caracteres', 'Error');
+      } else if (controls.name.errors['maxlength']) {
+        this.toastr.error('El nombre no puede tener más de 50 caracteres', 'Error');
+      }
+    }
+    if (controls.email.errors) {
+      if (controls.email.errors['email']) {
+        this.toastr.error('El correo electrónico no es válido', 'Error');
+      } else if (controls.email.errors['maxlength']) {
+        this.toastr.error('El correo electrónico no puede tener más de 50 caracteres', 'Error');
+      }
+    }
+    if (controls.password.errors) {
+      if (controls.password.errors['minlength']) {
+        this.toastr.error('La contraseña debe tener al menos 8 caracteres', 'Error');
+      }
     }
   }
 }
