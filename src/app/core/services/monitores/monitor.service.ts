@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MonitorModel } from '../../models/monitor.model';
 import { environment } from '../../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MonitorService {
   private url = environment.apiUrl + '/monitores';
+  router = inject(Router)
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +19,7 @@ export class MonitorService {
   }
 
   getMonitor(id: number): Observable<MonitorModel> {
-    return this.http.get<MonitorModel>(`${environment.apiUrl}/monitor/${id}`);
+    return this.http.get<MonitorModel>(`${environment.apiUrl}/monitores/${id}`);
   }
 
   createMonitor(monitor: MonitorModel): Observable<MonitorModel> {
@@ -30,6 +32,7 @@ export class MonitorService {
 
   deleteMonitor(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/monitor/${id}`);
+
   }
 
   getSensoresDeMonitor(idMonitor: number): Observable<number[]> {

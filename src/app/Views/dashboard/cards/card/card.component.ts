@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component,inject,Input } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import { faPen} from '@fortawesome/free-solid-svg-icons';
@@ -6,6 +6,7 @@ import {faCircle as faRegular} from '@fortawesome/free-regular-svg-icons';
 import {faCircle as faSolid} from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { MonitorService } from '../../../../core/services/monitores/monitor.service';
 
 @Component({
   selector: 'app-card',
@@ -14,8 +15,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './card.component.css'
 })
 export class CardComponent {
-
-  
+  monitorService = inject(MonitorService);
   faTrash = faTrash;
   faPen=faPen;
   faCircle=faRegular;
@@ -38,5 +38,10 @@ export class CardComponent {
 
   updateMonitor(id: number): void {
     this.router.navigate(['monitor/editar', id]);
+  }
+
+  deleteMonitor(id: number): void{
+    this.monitorService.deleteMonitor(id).subscribe();
+    this.router.navigate(['dashboard']);
   }
 }
