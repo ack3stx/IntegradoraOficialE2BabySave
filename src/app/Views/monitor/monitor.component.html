@@ -9,7 +9,13 @@
       <form [formGroup]="monitorForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
           <label for="monitorName" class="form-label">Nombre de tu Monitor:</label>
-          <input type="text" id="monitorName" class="form-control" formControlName="nombre" placeholder="Ingresa mínimo 5 caracteres">
+          <input
+            type="text"
+            id="monitorName"
+            class="form-control"
+            formControlName="nombre"
+            placeholder="Ingresa mínimo 5 caracteres"
+          >
           <small class="text-danger" *ngIf="monitorForm.get('nombre')?.invalid && monitorForm.get('nombre')?.touched">
             Debe tener al menos 5 caracteres.
           </small>
@@ -17,7 +23,12 @@
 
         <div class="mb-3">
           <label for="ubicacion" class="form-label">Ubicación (opcional):</label>
-          <input type="text" id="ubicacion" class="form-control" formControlName="ubicacion">
+          <input
+            type="text"
+            id="ubicacion"
+            class="form-control"
+            formControlName="ubicacion"
+          >
         </div>
 
         <p>Selecciona los datos que deseas ver en tu Monitor</p>

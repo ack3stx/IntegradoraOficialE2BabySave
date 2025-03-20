@@ -52,5 +52,8 @@ export const routes: Routes = [
         path: 'admin/users',
         component: CuentasComponent,
         canActivate : [rolesGuard(3)]
-    }
+    },
+    { path: 'monitor/editar/:id', 
+        component: MonitorComponent,
+        canActivate : [rolesGuard(2)] },
 ]

@@ -48,7 +48,11 @@ export class MonitorComponent implements OnInit {
 
   loadMonitor(id: number): void {
     this.monitorService.getMonitor(id).subscribe(monitor => {
-      this.monitorForm.patchValue(monitor);
+      console.log('Monitor cargado:', monitor);
+      this.monitorForm.patchValue({
+        nombre: monitor.Nombre_monitor,
+        ubicacion: monitor.Ubicacion
+      });
       this.loadSensores(id);
     });
   }
