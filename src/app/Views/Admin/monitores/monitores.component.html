@@ -19,8 +19,9 @@
             </div>
             <div class="col-md-6">
                 <div class="status-filter">
-                    <select class="select-styled">
-                        <option value="todos">Todos los monitores</option>
+                    <select class="select-styled" 
+                        [(ngModel)]="filtroEstado"
+                        (change)="onFiltroChange($event)">
                         <option value="activos">Monitores Activos</option>
                         <option value="inactivos">Monitores Inactivos</option>
                     </select>

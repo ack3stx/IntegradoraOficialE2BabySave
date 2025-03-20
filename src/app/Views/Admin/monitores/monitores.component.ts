@@ -20,14 +20,25 @@ export class MonitoresComponent implements OnInit {
   paginaActual: number = 1;
   elementosPorPagina: number = 5;
   totalPaginas: number = 0;
+  filtroEstado: string = 'activos';
 
   ngOnInit(): void {
    this.getMonitores();
   }
 
   getMonitores() {
-    this.monitores.obtenerMonitores().subscribe({
+    console.log('Filtro actual:', this.filtroEstado); // Debug
+
+    let peticion;
+    if (this.filtroEstado === 'activos') {
+      peticion = this.monitores.obtenerMonitoresActivos();
+    } else {
+      peticion = this.monitores.obtenerMonitoresInactivos();
+    }
+
+    peticion.subscribe({
       next: (data) => {
+        console.log('Datos recibidos:', data); // Debug
         this.Monitor = data;
         this.calcularTotalPaginas();
         this.actualizarMonitoresPaginados();
@@ -36,6 +47,16 @@ export class MonitoresComponent implements OnInit {
         console.error('Error al cargar monitores:', error);
       }
     });
+  }
+
+  onFiltroChange(event: Event): void {
+    const select = event.target as HTMLSelectElement;
+    this.filtroEstado = select.value;
+    console.log('Nuevo filtro seleccionado:', this.filtroEstado); // Debug
+    this.paginaActual = 1;
+    this.Monitor = []; // Limpiamos los datos anteriores
+    this.MonitorPaginado = []; // Limpiamos la paginación
+    this.getMonitores();
   }
 
   calcularTotalPaginas(): void {
