@@ -1,44 +1,47 @@
-.carousel-item{
+.carousel-item {
   min-height: 400px;
 }
 
-.carousel-caption{
+.carousel-caption {
   bottom: 120px;
   z-index: 2;
 }
 
-.carousel-caption p{
-  width: 60%;
-  margin: 10px auto;
-  font-size: clamp(1rem, 2vw, 1.2rem);
+.carousel-caption p,
+.carousel-caption h5,
+.baby-container h2,
+.baby-container p {
   opacity: 0;
   transform: translateY(25px);
   animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-.carousel-caption h5{
+.carousel-caption p {
+  width: 60%;
+  margin: 10px auto;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.carousel-caption h5 {
   font-size: clamp(2rem, 5vw, 3.6rem);
   font-weight: 610;
   text-align: center;
   text-transform: uppercase;
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  transform: translateY(25px);
-  animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .carousel-inner img {
   width: 100%;
   min-height: 400px;
-  max-height: 430px; 
+  max-height: 430px;
   object-fit: cover;
 }
 
-.carousel-item img{
+.carousel-item img {
   object-position: 0%;
 }
 
-.carousel-inner:before{
+.carousel-inner:before {
   content: '';
   position: absolute;
   width: 100%;
@@ -62,8 +65,13 @@
   border-radius: 14px;
   background: linear-gradient(to right, #e7f7fe, #d2effd);
   box-shadow: 4px 8px 10px rgba(0, 0, 0, 0.3);
-  color: #333; 
+  color: #333;
   transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+}
+
+.baby-container:hover {
+  box-shadow: 8px 10px 16px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
 }
 
 .baby-container h2 {
@@ -94,58 +102,41 @@
   margin-right: auto;
   border-radius: 14px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  opacity: 0.8; 
+  opacity: 0.8;
   transform: translateX(30px) rotateY(90deg);
   animation: fadeIn3DRotate 1.5s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards;
 }
 
-.baby-container:hover {
-  box-shadow: 8px 10px 16px rgba(0, 0, 0, 0.3);
-  transform: translateY(-2px);
-}
-
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Animaciones */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn3DRotate {
-    from {
-        opacity: 0.8;
-        transform: translateX(30px) rotateY(90deg); 
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0) rotateY(0deg);
-    }
+  from {
+    opacity: 0.8;
+    transform: translateX(30px) rotateY(90deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) rotateY(0deg);
+  }
 }
 
 .section-icons {
   position: relative;
-  background-image: url('../../../../public/drawable/fondoint.png'); 
+  background-image: url('../../../../public/drawable/fondoint.png');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  padding: 60px 20px; 
+  padding: 60px 20px;
   color: white;
 }
 
@@ -155,7 +146,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); 
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
 
@@ -172,13 +163,13 @@
 }
 
 .box-icons .d-flex {
-  background: rgba(154, 208, 255, 0.15); 
-  border-radius: 15px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  background: rgba(154, 208, 255, 0.15);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 100%;
-  min-height: 160px; 
+  min-height: 160px;
   display: flex;
-  align-items: center; 
+  align-items: center;
   padding: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   backdrop-filter: blur(5px);
@@ -191,7 +182,7 @@
 
 .custom-icon {
   font-size: 2.6rem;
-  color: #d4e2f0; 
+  color: #d4e2f0;
 }
 
 .box-icons h3 {
@@ -227,7 +218,7 @@
     height: 45vh;
   }
 
-  .carousel-item img{
+  .carousel-item img {
     object-position: 50%;
   }
 }

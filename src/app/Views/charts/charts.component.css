@@ -1,34 +1,100 @@
-.chart-container {
-    margin: 20px auto;
-    padding: 32px;
-    position: relative;
-    height: 65vh;
-    width: 80vw;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    background-color: white;
-  }
+  
+.filters-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-  .chart-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding-top: 40px;
-  }
+.status-filter {
+  max-width: 200px; /* Make it less wide */
+  margin: 0 0 20px auto; /* Change from auto on both sides to auto only on left */
+  position: relative;
+  z-index: 2; /* Ensure it sits above other elements */
+}
 
-  .chart-title {
-    position: absolute;
-    top: -30px; /* Lo mueve hacia arriba */
-    left: 50%;
-    transform: translateX(-50%);
+.select-styled {
     background: linear-gradient(to right, #66ccff, #ebe5e5);
-    color: #fff;
-    font-size: 18px;
+    color: #fffafa;
+    font-size: 16px;
     font-weight: bold;
     padding: 10px 20px;
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    white-space: nowrap;
-  }
-  
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.select-styled option {
+    background-color: white;
+    color: #333;
+    padding: 10px;
+}
+
+.select-styled:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(102, 204, 255, 0.5);
+}
+
+.select-styled:hover {
+    transform: scale(1.02);
+}
+
+
+
+.chart-container {
+  margin: 20px auto;
+  padding: 32px;
+  position: relative;
+  width: 80vw;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: white;
+}
+
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 40px;
+  margin-top: 45px;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -30px; /* Lo mueve hacia arriba */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.chart-title {
+  background: linear-gradient(to right, #66ccff, #ebe5e5);
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  margin-right: 10px;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media (max-width: 768px) {
+    .select-styled {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+    
+    .status-filter {
+        max-width: 100%;
+    }
+}

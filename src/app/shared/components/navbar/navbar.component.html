@@ -5,34 +5,34 @@
           <span class="text-primary logo">Baby</span>Save
           <span class="badge bg-ligth">v2.0</span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-start" aria-controls="navbar-start" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
+      <button class="navbar-toggler" type="button" aria-controls="navbar-start" aria-expanded="false" aria-label="Toggle navigation"(click)="toggleMenu()">
+  <span class="navbar-toggler-icon"></span>
+</button>
       <div class="collapse navbar-collapse" id="navbar-start">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-2 scrollable-menu">
             <li class="nav-item" *ngIf="Role(0)">
-              <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+              <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Inicio</a>
             </li>
             <li class="nav-item" *ngIf="Role(0)">
-              <a class="nav-link" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Login</a>
+              <a class="nav-link" routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Login</a>
             </li>
             <li class="nav-item" *ngIf="Role(0)">
-              <a class="nav-link" routerLink="/register" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Register</a>
+              <a class="nav-link" routerLink="/register" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Register</a>
             </li>
             <li class="nav-item" *ngIf="Role(2)">
-              <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+              <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Dashboard</a>
             </li>
             <li class="nav-item" *ngIf="Role(2)">
-              <a class="nav-link" routerLink="/perfil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
+              <a class="nav-link" routerLink="/perfil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Perfil</a>
             </li>
             <li class="nav-item" *ngIf="Role(3)">
-              <a class="nav-link" routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+              <a class="nav-link" routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Dashboard</a>
             </li>
             <li class="nav-item" *ngIf="Role(3)">
-              <a class="nav-link" routerLink="/admin/users" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Gestion Usuarios</a>
+              <a class="nav-link" routerLink="/admin/users" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Gestion Usuarios</a>
             </li>
             <li class="nav-item" *ngIf="checarSesion()">
-              <a class="nav-link" routerLink="#" (click)="logout()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Cerrar Sesión</a>
+              <a class="nav-link" routerLink="#" (click)="logout(); closeMenu()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Cerrar Sesión</a>
             </li>
             </ul>
       </div>
