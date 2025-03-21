@@ -14,7 +14,6 @@ export class MonitorServiceService {
 
   obtenerMonitoresActivos() {
     this.ruta = environment.apiUrl + '/monitores/activos';
-    console.log(this.ruta);
     return this.http.get<MonitorModel[]>(this.ruta);
   }
 

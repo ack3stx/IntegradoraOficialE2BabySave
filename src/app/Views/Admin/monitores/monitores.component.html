@@ -50,29 +50,11 @@
 
         <!-- Paginación -->
         <div class="d-flex justify-content-center mt-3">
-            <nav aria-label="Navegación de páginas">
-                <ul class="pagination">
-                    <li class="page-item" [class.disabled]="paginaActual === 1">
-                        <button class="page-link" (click)="cambiarPagina(paginaActual - 1)">
-                            <i class="bi bi-chevron-left"></i>
-                        </button>
-                    </li>
-                    
-                    <li class="page-item" 
-                        *ngFor="let pagina of [].constructor(totalPaginas); let i = index"
-                        [class.active]="paginaActual === i + 1">
-                        <button class="page-link" (click)="cambiarPagina(i + 1)">
-                            {{ i + 1 }}
-                        </button>
-                    </li>
-        
-                    <li class="page-item" [class.disabled]="paginaActual === totalPaginas">
-                        <button class="page-link" (click)="cambiarPagina(paginaActual + 1)">
-                            <i class="bi bi-chevron-right"></i>
-                        </button>
-                    </li>
-                </ul>
-            </nav>
+            <app-paginador-component
+                [paginaActual]="paginador.obtenerPaginaActual()"
+                [totalPaginas]="totalPaginas"
+                (cambiarPaginaEvent)="onCambiarPagina($event)">
+            </app-paginador-component>
         </div>
     </div>
 </div>

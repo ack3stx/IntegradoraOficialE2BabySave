@@ -1,18 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MonitorServiceService } from '../../../core/services/admin/Monitores/monitor-service.service';
 import { MonitorModel } from '../../../core/models/monitor.model';
+import { PaginadorService } from '../../../core/services/Paginacion/paginador.service';
+import { PaginadorComponentComponent } from '../../../shared/paginador-component/paginador-component.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-monitores',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, PaginadorComponentComponent],
   templateUrl: './monitores.component.html',
   styleUrl: './monitores.component.css'
 })
 export class MonitoresComponent implements OnInit {
   
   monitores = inject(MonitorServiceService);
+  paginador = inject(PaginadorService);
 
   Monitor: MonitorModel | MonitorModel[] = [];
   MonitorPaginado : MonitorModel[] = [];
@@ -23,6 +26,9 @@ export class MonitoresComponent implements OnInit {
   filtroEstado: string = 'activos';
 
   ngOnInit(): void {
+    this.paginador.paginaActual$.subscribe(() => {
+      this.actualizarMonitoresPaginados();
+    });
    this.getMonitores();
   }
 
@@ -64,16 +70,14 @@ export class MonitoresComponent implements OnInit {
   }
 
   actualizarMonitoresPaginados(): void {
-    const inicio = (this.paginaActual - 1) * this.elementosPorPagina;
-    const fin = inicio + this.elementosPorPagina;
-    this.MonitorPaginado = Array.isArray(this.Monitor) ? this.Monitor.slice(inicio, fin) : [];
+    if (Array.isArray(this.Monitor)) {
+      this.MonitorPaginado = this.paginador.paginar(this.Monitor);
+      this.totalPaginas = this.paginador.calcularTotalPaginas(this.Monitor.length);
+    }
   }
 
-  cambiarPagina(pagina: number): void {
-    if (pagina >= 1 && pagina <= this.totalPaginas) {
-      this.paginaActual = pagina;
-      this.actualizarMonitoresPaginados();
-    }
+  onCambiarPagina(numeroPagina: number): void {
+    this.paginador.cambiarPagina(numeroPagina);
   }
 
 }
