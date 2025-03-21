@@ -31,6 +31,7 @@
           >
         </div>
 
+        <div *ngIf="!isEditMode">
         <p>Selecciona los datos que deseas ver en tu Monitor</p>
 
         <div class="form-check">
@@ -57,6 +58,7 @@
           <input type="checkbox" class="form-check-input" id="sensor-3" [(ngModel)]="sensors[4].checked" [ngModelOptions]="{standalone: true}">
           <label class="form-check-label" for="sensor-3">Movimiento del Bebé</label>
         </div>
+      </div>
 
         <div class="d-grid mt-4">
           <button class="btn btn-primary" type="submit" [disabled]="monitorForm.invalid">
