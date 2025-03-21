@@ -1,0 +1,60 @@
+<div class="admin-container mt-4">
+    <div class="chart-title mb-4">Gestión de Monitores</div>
+    
+    <div class="filters-container mb-4">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="search-container">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input 
+                            type="text" 
+                            class="form-control search-input" 
+                            placeholder="Buscar monitor..."
+                            aria-label="Buscar monitor">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="status-filter">
+                    <select class="select-styled" 
+                        [(ngModel)]="filtroEstado"
+                        (change)="onFiltroChange($event)">
+                        <option value="activos">Monitores Activos</option>
+                        <option value="inactivos">Monitores Inactivos</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-header">
+                <tr>
+                    <th>Nombre del Monitor</th>
+                    <th>Ubicación</th>
+                    <th>Veces Activo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let monitor of MonitorPaginado">
+                    <td>{{ monitor.Nombre_Monitor }}</td>
+                    <td>{{ monitor.Ubicacion }}</td>
+                    <td>{{ monitor.Activo }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Paginación -->
+        <div class="d-flex justify-content-center mt-3">
+            <app-paginador-component
+                [paginaActual]="paginador.obtenerPaginaActual()"
+                [totalPaginas]="totalPaginas"
+                (cambiarPaginaEvent)="onCambiarPagina($event)">
+            </app-paginador-component>
+        </div>
+    </div>
+</div>

@@ -5,25 +5,30 @@
       <h1>Registrarse</h1>
 
       <div class="input-box">
-        <input type="text" formControlName="name" placeholder="Nombre">
+        <input type="text" formControlName="name" placeholder="Nombre" class="{{ isSubmitting ? 'opacity' : '' }}">
         <i class='bx bxs-user'></i>
       </div>
-
+      
       <div class="input-box">
-        <input type="email" formControlName="email" placeholder="Correo Electrónico">
+        <input type="email" formControlName="email" placeholder="Correo Electrónico" class="{{ isSubmitting ? 'opacity' : '' }}">
         <i class='bx bxs-envelope'></i>
       </div>
-
+      
       <div class="input-box">
-        <input type="password" formControlName="password" placeholder="Contraseña">
+        <input type="password" formControlName="password" placeholder="Contraseña" class="{{ isSubmitting ? 'opacity' : '' }}">
         <i class='bx bxs-lock-alt'></i>
       </div>
 
-      <button type="button" class="btn" (click)="onRegister()">Registrarse</button>
+      <button type="button" class="btn" (click)="onRegister()" [disabled]="isSubmitting" class="{{ isSubmitting ? 'opacity' : '' }}">
+        Registrarse
+      </button>
 
       <div class="login-link">
         <p>¿Ya tienes una cuenta? <br>
-          <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Iniciar sesión</a></p>
+          <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [ngClass]="{'opacity': isSubmitting}">
+            Iniciar Sesión
+          </a>
+        </p>
       </div>
     </form>
   </div>

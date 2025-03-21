@@ -48,7 +48,11 @@ export class MonitorComponent implements OnInit {
 
   loadMonitor(id: number): void {
     this.monitorService.getMonitor(id).subscribe(monitor => {
-      this.monitorForm.patchValue(monitor);
+      console.log('Monitor cargado:', monitor);
+      this.monitorForm.patchValue({
+        nombre: monitor.Nombre_Monitor,
+        ubicacion: monitor.Ubicacion
+      });
       this.loadSensores(id);
     });
   }
@@ -69,12 +73,12 @@ export class MonitorComponent implements OnInit {
     if (this.isEditMode && this.monitorId) {
       this.monitorService.updateMonitor(this.monitorId, monitorData).subscribe(() => {
         this.actualizarSensores(this.monitorId!);
-        this.router.navigate(['/monitores']);
+        this.router.navigate(['/dashboard']);
       });
     } else {
       this.monitorService.createMonitor(monitorData).subscribe(response => {
         this.actualizarSensores(response.id);
-        this.router.navigate(['/monitores']);
+        this.router.navigate(['/dashboard']);
       });
     }
   }
@@ -84,4 +88,5 @@ export class MonitorComponent implements OnInit {
       this.monitorService.agregarSensor(monitorId, sensor.id).subscribe();
     });
   }
+
 }
