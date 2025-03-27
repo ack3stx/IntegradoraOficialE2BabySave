@@ -10,6 +10,9 @@ import { RealtimechartsComponent } from './Views/real_time_charts/realtimecharts
 import { PanelComponent } from './Views/Admin/panel/panel.component';
 import { CuentasComponent } from './Views/Admin/cuentas/cuentas.component';
 import { rolesGuard } from './core/guards/roles.guard';
+import { DeleteMonitorsComponent } from './Views/Admin/delete-monitors/delete-monitors.component';
+import { MonitoresAnalisisComponent } from './Views/Admin/reporte-monitor/monitores-analisis/monitores-analisis.component';
+
 
 export const routes: Routes = [
     {
@@ -56,4 +59,14 @@ export const routes: Routes = [
     { path: 'monitor/editar/:id', 
         component: MonitorComponent,
         canActivate : [rolesGuard(2)] },
+    {
+        path: 'admin/monitors-delete',
+        component: DeleteMonitorsComponent,
+        canActivate: [rolesGuard(3)]
+    },
+    {
+        path: 'admin/reporte',
+        component: MonitoresAnalisisComponent,
+        canActivate: [rolesGuard(3)]
+    }
 ]

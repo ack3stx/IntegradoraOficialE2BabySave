@@ -101,7 +101,7 @@ export class RegisterComponent {
     }
     if (controls.password.errors) {
       if (controls.password.errors['minlength']) {
-        this.toastr.error('La contraseña debe tener al menos 8 caracteres', 'Error');
+        this.toastr.error('La contraseña debe tener al menos 6 caracteres', 'Error');
       }
     }
   }

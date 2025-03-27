@@ -1,6 +1,6 @@
 export interface MonitorModel {
     id : number;
-    user_id : number;
+    user_id: number | string;
     Nombre_Monitor:string | null;
     Ubicacion:string;
     Activo : number | null;
