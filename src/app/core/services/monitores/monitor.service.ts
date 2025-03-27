@@ -32,7 +32,6 @@ export class MonitorService {
 
   deleteMonitor(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/monitor/${id}`);
-
   }
 
   getSensoresDeMonitor(idMonitor: number): Observable<number[]> {

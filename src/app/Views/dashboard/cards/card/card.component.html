@@ -11,7 +11,7 @@
                 <button class="rounded-btn edit-btn" (click)="updateMonitor(item.id)">
                     <fa-icon [icon]="faPen"></fa-icon>
                 </button>
-                <button class="rounded-btn delete-btn" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"  (click)="deleteMonitor(item.id)">
+                <button class="rounded-btn delete-btn" (click)="deleteMonitor(item.id)">
                     <fa-icon [icon]="faTrash"></fa-icon>
                 </button>
             </div>

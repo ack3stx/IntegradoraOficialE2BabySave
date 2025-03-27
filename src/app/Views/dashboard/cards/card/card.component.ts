@@ -1,4 +1,4 @@
-import { Component,inject,Input } from '@angular/core';
+import { Component,EventEmitter,inject,Input, Output } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import { faPen} from '@fortawesome/free-solid-svg-icons';
@@ -20,12 +20,13 @@ export class CardComponent {
   faPen=faPen;
   faCircle=faRegular;
   fasolid = faSolid;
+  router = inject(Router);
 
   estadoBocina = true;
 
   @Input() item:any;
+  @Output() monitorDeleted = new EventEmitter<number>();
 
-  constructor(private router: Router) { }
 
   navigateToLive(){
     this.router.navigate(['/live', this.item.id]);
@@ -41,7 +42,8 @@ export class CardComponent {
   }
 
   deleteMonitor(id: number): void{
-    this.monitorService.deleteMonitor(id).subscribe();
-    this.router.navigate(['dashboard']);
+    this.monitorService.deleteMonitor(id).subscribe(() => {
+      this.monitorDeleted.emit(id);
+    });
   }
 }

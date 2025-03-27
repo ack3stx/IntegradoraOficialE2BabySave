@@ -1,6 +1,6 @@
 <div class="dashboard-container">
   <div class="background-overlay"></div>
   <div class="monitor-container">
-    <app-card *ngFor="let item of monitores" [item]="item"></app-card>
+    <app-card *ngFor="let item of monitores" [item]="item" (monitorDeleted)="onMonitorDeleted($event)"></app-card>
     <app-agregar></app-agregar>
   </div>
