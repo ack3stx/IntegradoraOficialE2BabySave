@@ -8,14 +8,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 30px;
   padding-top: 110px;
   padding-bottom: 30px;
   position: relative;
-  background-image: url('../../../../../public/drawable/fondoint.png');
+  background-image: url('../../../../../public/drawable/cielo.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  min-height: 72vh;
 }
 
 .background-overlay {

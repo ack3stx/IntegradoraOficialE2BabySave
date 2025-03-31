@@ -22,7 +22,7 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: -30px; /* Lo mueve hacia arriba */
+    top: -30px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -37,6 +37,18 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
     margin-right: 10px;
+}
+
+/* Estilos específicos para el <select> */
+select.chart-title {
+    color:white; /* Color de texto oscuro para el select */
+    cursor: pointer;
+}
+
+/* Estilos para las opciones del <select> */
+select.chart-title option {
+    color: #333; /* Color de texto oscuro */
+    background-color: white; /* Fondo blanco para mejor contraste */
 }
 
 canvas {

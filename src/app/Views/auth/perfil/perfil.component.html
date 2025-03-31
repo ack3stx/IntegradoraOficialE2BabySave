@@ -60,22 +60,30 @@
               <span class="input-group-text">
                 <i class="bi bi-pencil-square"></i>
               </span>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                formControlName="password"
-                [readonly]="!editModePassword"
-                [placeholder]="editModePassword ? 'Ingrese la nueva contraseña' : '*********'"
-                [ngClass]="{'edit-mode': editModePassword}"
-              >
+              <button
+              type="button"
+              class="btn btn-outline-dark toggle-password"
+              (click)="togglePasswordVisibility()"
+              [hidden]="!editModePassword"
+            >
+              <i class="bi" [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
+            </button>
+            <input
+            type="{{showPassword ? 'text' : 'password'}}"
+            class="form-control"
+            id="password"
+            formControlName="password"
+            [readonly]="!editModePassword"
+            placeholder="Ingrese la nueva contraseña"
+            [ngClass]="{'edit-mode': editModePassword}"
+          >
               <button type="button" class="btn btn-outline-primary" (click)="activarEdicionPassword()">
                 <i class="bi" [ngClass]="editModePassword ? 'bi-x-circle' : 'bi-pencil'"></i>
                 {{ editModePassword ? 'Cancelar' : 'Editar' }}
               </button>
             </div>
           </div>
-          <button type="submit" class="btn btn-success w-100 mt-3" [disabled]="!editModeName && !editModePassword">
+          <button type="submit" class="btn btn-primary w-100 mt-3" [disabled]="!editModeName && !editModePassword">
             <i class="bi bi-save me-2"></i> Actualizar
           </button>
         </form>

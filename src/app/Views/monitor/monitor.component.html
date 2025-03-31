@@ -1,13 +1,13 @@
-<br><br>
-<div class="container mt-5">
-  <div class="card shadow-sm">
+<div class="login-container">
+  <div class="background-overlay"></div>
+  <div class="login-wrapper">
     <div class="card-body">
-      <h4 class="card-title text-center">
+      <h1 class="card-title text-center">
         {{ isEditMode ? 'Editar Monitor' : 'Creación de tu Monitor' }}
-      </h4>
+      </h1>
 
       <form [formGroup]="monitorForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
+        <div class="input-box mb-3">
           <label for="monitorName" class="form-label">Nombre de tu Monitor:</label>
           <input
             type="text"
@@ -21,7 +21,7 @@
           </small>
         </div>
 
-        <div class="mb-3">
+        <div class="input-box mb-3">
           <label for="ubicacion" class="form-label">Ubicación (opcional):</label>
           <input
             type="text"
@@ -32,36 +32,36 @@
         </div>
 
         <div *ngIf="!isEditMode">
-        <p>Selecciona los datos que deseas ver en tu Monitor</p>
+          <p>Selecciona los datos que deseas ver en tu Monitor</p>
 
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="sensor-2" [(ngModel)]="sensors[0].checked" [ngModelOptions]="{standalone: true}">
-          <label class="form-check-label" for="sensor-2">Temperatura</label>
-        </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="sensor-2" [(ngModel)]="sensors[0].checked" [ngModelOptions]="{standalone: true}">
+            <label class="form-check-label" for="sensor-2">Temperatura</label>
+          </div>
 
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="sensor-1" [(ngModel)]="sensors[1].checked" [ngModelOptions]="{standalone: true}">
-          <label class="form-check-label" for="sensor-1">Calidad del Aire</label>
-        </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="sensor-1" [(ngModel)]="sensors[1].checked" [ngModelOptions]="{standalone: true}">
+            <label class="form-check-label" for="sensor-1">Calidad del Aire</label>
+          </div>
 
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="sensor-5" [(ngModel)]="sensors[2].checked" [ngModelOptions]="{standalone: true}">
-          <label class="form-check-label" for="sensor-5">Nivel de Luz</label>
-        </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="sensor-5" [(ngModel)]="sensors[2].checked" [ngModelOptions]="{standalone: true}">
+            <label class="form-check-label" for="sensor-5">Nivel de Luz</label>
+          </div>
 
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="sensor-4" [(ngModel)]="sensors[3].checked" [ngModelOptions]="{standalone: true}">
-          <label class="form-check-label" for="sensor-4">Estado del Bebé</label>
-        </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="sensor-4" [(ngModel)]="sensors[3].checked" [ngModelOptions]="{standalone: true}">
+            <label class="form-check-label" for="sensor-4">Estado del Bebé</label>
+          </div>
 
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="sensor-3" [(ngModel)]="sensors[4].checked" [ngModelOptions]="{standalone: true}">
-          <label class="form-check-label" for="sensor-3">Movimiento del Bebé</label>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="sensor-3" [(ngModel)]="sensors[4].checked" [ngModelOptions]="{standalone: true}">
+            <label class="form-check-label" for="sensor-3">Movimiento del Bebé</label>
+          </div>
         </div>
-      </div>
 
         <div class="d-grid mt-4">
-          <button class="btn btn-primary" type="submit" [disabled]="monitorForm.invalid">
+          <button class="btn" type="submit" [disabled]="monitorForm.invalid">
             {{ isEditMode ? 'Actualizar Monitor' : 'Crear Monitor' }}
           </button>
         </div>

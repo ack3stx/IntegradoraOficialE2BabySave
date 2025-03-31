@@ -8,22 +8,34 @@ import { environment } from '../../../../environments/environment';
   providedIn: 'root'
 })
 export class RealtimechartsService {
-  private apiUrl = environment.apiUrl + '/sensor-data/1';
+  private baseUrl = environment.apiUrl; // URL base sin endpoint específico
   public chart: any;
 
   constructor(private http: HttpClient) { }
 
+  public destroyChart() {
+    if (this.chart) {
+      this.chart.destroy();
+      this.chart = null;
+    }
+  }
+
   createChart() {
+    if (this.chart) {
+      return;
+    }
+
     this.chart = new Chart("MyChart", {
       type: 'line',
       data: {
-        labels: [], // Aquí se almacenarán las fechas (created_at)
+        labels: [],
         datasets: [{
           label: "Valor del Sensor",
-          data: [], // Aquí se almacenarán los valores numéricos (valor)
+          data: [],
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1
+          tension: 0.1,
+          fill: true
         }]
       },
       options: {
@@ -33,25 +45,23 @@ export class RealtimechartsService {
     });
   }
 
-  // Método para actualizar los datos del gráfico
   updateChartData(labels: string[], data: number[]) {
     if (this.chart) {
       this.chart.data.labels = labels;
       this.chart.data.datasets[0].data = data;
-      this.chart.update(); // Actualiza el gráfico
+      this.chart.update();
     }
   }
 
-  getSensorData(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  getSensorData(sensorType: string, monitorId: number): Observable<any> {
+    const body = {
+      sensor: sensorType,
+      id_monitor: monitorId.toString()
+    };
+    return this.http.post<any>(`${this.baseUrl}/data-sensor`, body);
   }
 
-  // Método para actualizar el apiUrl
-  updateApiUrl(sensorId: number) {
-    this.apiUrl = `${environment.apiUrl}/sensor-data/${sensorId}`;
-  }
-
-  getSensors(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/sensores`);
+  getSensorsMonitor(monitorId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/sensores/${monitorId}`);
   }
 }

@@ -31,6 +31,12 @@
             <li class="nav-item" *ngIf="Role(3)">
               <a class="nav-link" routerLink="/admin/users" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Gestion Usuarios</a>
             </li>
+            <li class="nav-item" *ngIf="Role(3)">
+              <a class="nav-link" routerLink="/admin/monitors-delete" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Monitores Eliminados</a>
+            </li>
+            <li class="nav-item" *ngIf="Role(3)">
+              <a class="nav-link" routerLink="/admin/reporte" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Monitores Promedio</a>
+            </li>
             <li class="nav-item" *ngIf="checarSesion()">
               <a class="nav-link" routerLink="#" (click)="logout(); closeMenu()" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Cerrar Sesión</a>
             </li>

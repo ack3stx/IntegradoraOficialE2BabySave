@@ -6,7 +6,7 @@
 
 .lol{
     position: relative;
-    background-image: url('../../../../../public/drawable/fondoint.png');
+    background-image: url('../../../../../public/drawable/cielo.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -18,13 +18,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 0;
   }
 
 .custom-profile-header {
     position: relative;
-    background-image: url('../../../../../public/drawable/envivo.jpg');
+    background-image: url('../../../../../public/drawable/cielo.jpg');
     background-size: cover;
     background-position: center;
     color: white;
@@ -39,7 +39,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
 }
 .custom-profile-picture {
@@ -97,14 +97,30 @@
     margin-right: 10px;
     color: #6c757d;
 }
+
+.toggle-password{
+    background-color: #23272b !important;
+    font-size: 1rem;
+    color: #fff;
+}
+
 .edit-mode {
     border-color: blue !important;
     box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
 }
 
-@media (max-width: 800px) {
+input#password::placeholder {
+    color: rgba(3, 3, 3, 0.5) !important;
+  }
+
+  @media (max-width: 800px) {
     .custom-profile-picture img {
         width: 120px;
         height: 120px;
+    }
+
+    .btn-outline-primary {
+        width: 100%;
+        margin-top: 10px; 
     }
 }

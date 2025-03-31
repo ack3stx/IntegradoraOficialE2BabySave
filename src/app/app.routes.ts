@@ -39,6 +39,7 @@ export const routes: Routes = [
         path:"admin/monitores",
         component: MonitoresComponent,
     },
+    
     {
         canMatch: [rutasGuard],
         path: '',

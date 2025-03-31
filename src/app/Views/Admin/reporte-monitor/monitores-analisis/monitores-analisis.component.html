@@ -1,5 +1,14 @@
 <div class="admin-container mt-4">
-    <div class="chart-title mb-4">Monitores Eliminados</div>
+    <div class="chart-title mb-4">Análisis de Monitores</div>
+    
+    <div *ngIf="datosMonitores" class="periodo-info mb-4">
+      <div class="alert alert-info">
+        <strong>Periodo de análisis:</strong> 
+        {{ formatearFecha(datosMonitores.periodo_analisis.desde) }} al 
+        {{ formatearFecha(datosMonitores.periodo_analisis.hasta) }}
+        <span class="badge bg-primary ms-2">{{ datosMonitores.total_monitores }} monitores</span>
+      </div>
+    </div>
     
     <div class="filters-container mb-4">
       <div class="row align-items-center">
@@ -13,6 +22,8 @@
                 type="text" 
                 class="form-control search-input" 
                 placeholder="Buscar monitor..."
+                [(ngModel)]="terminoBusqueda"
+                (keyup.enter)="buscarMonitores()"
                 aria-label="Buscar monitor">
             </div>
           </div>
@@ -24,7 +35,7 @@
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Cargando...</span>
       </div>
-      <p class="mt-2">Cargando datos de monitores eliminados...</p>
+      <p class="mt-2">Cargando datos de monitores...</p>
     </div>
   
     <div *ngIf="error" class="alert alert-danger">
@@ -32,21 +43,20 @@
     </div>
   
     <div *ngIf="!cargando && !error">
-      <div *ngIf="monitores.length === 0" class="alert alert-info">
-        No hay monitores eliminados para mostrar.
+      <div *ngIf="monitoresFiltrados.length === 0" class="alert alert-info">
+        No hay monitores para mostrar.
       </div>
   
-      <div *ngIf="monitores.length > 0" class="table-responsive">
+      <div *ngIf="monitoresFiltrados.length > 0" class="table-responsive">
         <table class="table table-hover">
           <thead class="table-header">
             <tr>
               <th>ID</th>
-              <th>ID Usuario</th>
+              <th>Usuario</th>
               <th>Nombre del Monitor</th>
-              <th>Ubicación</th>
-              <th>Estado</th>
-              <th>Fecha de Eliminación</th>
-              <th>Fecha de Creación</th>
+              <th>Nivel de Actividad</th>
+              <th>Clasificación</th>
+              <th>Periodo de Análisis</th>
             </tr>
           </thead>
           <tbody>
@@ -54,14 +64,20 @@
               <td>{{ monitor.id }}</td>
               <td>{{ monitor.user_id }}</td>
               <td>{{ monitor.Nombre_Monitor || 'No especificado' }}</td>
-              <td>{{ monitor.Ubicacion }}</td>
               <td>
-                <span class="badge" [ngClass]="monitor.Activo ? 'bg-success' : 'bg-danger'">
-                  {{ monitor.Activo ? 'Activo' : 'Inactivo' }}
+                <span class="badge" [ngClass]="getNivelActividadClass(monitor.Activo)">
+                  {{ getNivelActividad(monitor.Activo) }} ({{ monitor.Activo }})
                 </span>
               </td>
-              <td>{{ formatearFecha(monitor.deleted_at) }}</td>
-              <td>{{ formatearFecha(monitor.created_at) }}</td>
+              <td>
+                <span class="badge" [ngClass]="getClasificacionClass(monitor.clasificacion)">
+                  {{ monitor.clasificacion }}
+                </span>
+              </td>
+              <td>
+                {{ formatearFecha(monitor.periodo_analisis.desde) }} - 
+                {{ formatearFecha(monitor.periodo_analisis.hasta) }}
+              </td>
             </tr>
           </tbody>
         </table>
