@@ -8,6 +8,7 @@ import { MonitorModel } from '../../../core/models/monitor.model';
 @Component({
   selector: 'app-dashboard',
   imports: [CardComponent,CommonModule,AgregarComponent],
+  standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -32,6 +33,17 @@ export class DashboardComponent implements OnInit
         console.log(e);
       }
     }) 
+  }
+
+  cargarMonitores(): void {
+    this.monitorService.getMonitores().subscribe(data => {
+      this.monitores = data;
+    });
+  }
+
+  onMonitorDeleted(id: number): void {
+    this.monitores = this.monitores.filter(monitor => monitor.id !== id);
+    this.cargarMonitores();
   }
 
 }

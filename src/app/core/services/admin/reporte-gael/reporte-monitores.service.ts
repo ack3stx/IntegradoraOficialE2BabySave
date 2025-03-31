@@ -6,11 +6,11 @@ import { inject } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class MonitorsDeleteService {
+export class ReporteMonitoresService {
 
   http = inject(HttpClient);
 
-  private url = environment.apiUrl + '/monitor/elimado';
+  private url = environment.apiUrl + '/monitor/actividad';
 
   constructor() { 
   }
@@ -18,5 +18,5 @@ export class MonitorsDeleteService {
   consultarMonitoresEliminados(){
     return this.http.get<any>(this.url);
   }
-
 }
+
