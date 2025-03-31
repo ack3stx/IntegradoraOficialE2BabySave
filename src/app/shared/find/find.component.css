@@ -1,0 +1,28 @@
+.search-container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .search-input {
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+  }
+  
+  .search-input:focus {
+    border-color: #66ccff;
+    box-shadow: 0 0 0 0.2rem rgba(102, 204, 255, 0.25);
+  }
+  
+  .input-group-text {
+    background-color: white;
+    border: 2px solid #e0e0e0;
+    border-right: none;
+    border-radius: 20px 0 0 20px;
+  }
+
+  .input-group .form-control {
+    border-left: none;
+    border-radius: 0 20px 20px 0;
+  }

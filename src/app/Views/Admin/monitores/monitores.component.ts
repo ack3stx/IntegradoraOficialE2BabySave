@@ -5,10 +5,11 @@ import { PaginadorService } from '../../../core/services/Paginacion/paginador.se
 import { PaginadorComponentComponent } from '../../../shared/paginador-component/paginador-component.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FindComponent } from '../../../shared/find/find.component';
 
 @Component({
   selector: 'app-monitores',
-  imports: [CommonModule, FormsModule, PaginadorComponentComponent],
+  imports: [CommonModule, FormsModule, PaginadorComponentComponent, FindComponent],
   templateUrl: './monitores.component.html',
   styleUrl: './monitores.component.css'
 })
@@ -16,9 +17,12 @@ export class MonitoresComponent implements OnInit {
   
   monitores = inject(MonitorServiceService);
   paginador = inject(PaginadorService);
+  
 
   Monitor: MonitorModel | MonitorModel[] = [];
   MonitorPaginado : MonitorModel[] = [];
+  terminoBusqueda: string = '';
+  monitoresFiltrados: MonitorModel[] = [];
 
   paginaActual: number = 1;
   elementosPorPagina: number = 5;
@@ -32,8 +36,21 @@ export class MonitoresComponent implements OnInit {
    this.getMonitores();
   }
 
+  buscarMonitores(termino: string): void {
+    this.terminoBusqueda = termino.toLowerCase();
+    
+    if (Array.isArray(this.Monitor)) {
+      this.monitoresFiltrados = this.Monitor.filter(monitor => 
+        monitor.Nombre_Monitor?.toLowerCase().includes(this.terminoBusqueda) ?? false
+      );
+      
+      this.MonitorPaginado = this.paginador.paginar(this.monitoresFiltrados);
+      this.totalPaginas = this.paginador.calcularTotalPaginas(this.monitoresFiltrados.length);
+    }
+  }
+
   getMonitores() {
-    console.log('Filtro actual:', this.filtroEstado); // Debug
+    console.log('Filtro actual:', this.filtroEstado);
 
     let peticion;
     if (this.filtroEstado === 'activos') {
@@ -44,8 +61,9 @@ export class MonitoresComponent implements OnInit {
 
     peticion.subscribe({
       next: (data) => {
-        console.log('Datos recibidos:', data); // Debug
+        console.log('Datos recibidos:', data);
         this.Monitor = data;
+        this.monitoresFiltrados = data; // Inicializamos los monitores filtrados
         this.calcularTotalPaginas();
         this.actualizarMonitoresPaginados();
       },
@@ -58,10 +76,12 @@ export class MonitoresComponent implements OnInit {
   onFiltroChange(event: Event): void {
     const select = event.target as HTMLSelectElement;
     this.filtroEstado = select.value;
-    console.log('Nuevo filtro seleccionado:', this.filtroEstado); // Debug
+    console.log('Nuevo filtro seleccionado:', this.filtroEstado);
     this.paginaActual = 1;
-    this.Monitor = []; // Limpiamos los datos anteriores
-    this.MonitorPaginado = []; // Limpiamos la paginación
+    this.Monitor = [];
+    this.MonitorPaginado = [];
+    this.monitoresFiltrados = []; // Limpiamos también los filtrados
+    this.terminoBusqueda = ''; // Reseteamos la búsqueda
     this.getMonitores();
   }
 
@@ -71,8 +91,10 @@ export class MonitoresComponent implements OnInit {
 
   actualizarMonitoresPaginados(): void {
     if (Array.isArray(this.Monitor)) {
-      this.MonitorPaginado = this.paginador.paginar(this.Monitor);
-      this.totalPaginas = this.paginador.calcularTotalPaginas(this.Monitor.length);
+      // Usamos monitoresFiltrados en lugar de Monitor para la paginación
+      const datosAPaginar = this.terminoBusqueda ? this.monitoresFiltrados : this.Monitor;
+      this.MonitorPaginado = this.paginador.paginar(datosAPaginar);
+      this.totalPaginas = this.paginador.calcularTotalPaginas(datosAPaginar.length);
     }
   }
 
