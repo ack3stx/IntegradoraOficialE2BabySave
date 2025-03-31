@@ -1,5 +1,5 @@
 .dashboard-container {
-    background-image: url('../../../../../public/drawable/fondo_monitoress.png');
+    background-image: url('../../../../../public/drawable/cielo.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -8,6 +8,7 @@
     padding-top: 70px;
     justify-content: center;
     align-items: center;
+    min-height: 72vh;
 }
 
 .background-overlay {

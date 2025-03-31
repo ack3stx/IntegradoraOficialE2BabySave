@@ -79,10 +79,10 @@
 
 /* Botón de eliminación */
 .delete-btn {
-    background-color: #ff6b6b;
-    color: white;
+    background-color: #ffffff;
+    color: black
 }
 
 .delete-btn:hover {
-    background-color: #d62828;
+    background-color: #c2b2b2;
 }
