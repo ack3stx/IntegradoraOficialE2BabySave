@@ -7,6 +7,9 @@ import {faCircle as faSolid} from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { MonitorService } from '../../../../core/services/monitores/monitor.service';
+import { Observable } from 'rxjs';
+import { MonitorModel } from '../../../../core/models/monitor.model';
+
 
 @Component({
   selector: 'app-card',
@@ -28,9 +31,23 @@ export class CardComponent {
   @Output() monitorDeleted = new EventEmitter<number>();
 
 
-  navigateToLive(){
+ /*  navigateToLive(){
     this.router.navigate(['/live', this.item.id]);
-  }
+  } */
+
+    datosMongo(item:MonitorModel)
+    {
+      console.log("ID del monitor seleccionado:", item.id);
+      this.monitorService.datosMongo(item.id).subscribe({
+        next: (data) => {
+          console.log("datos enviados a mongo");
+          this.router.navigate(['/live', item.id]);
+        },
+        error: (err) => {
+          console.error("Error al obtener datos de MongoDB:", err);
+        }
+      });
+    }
 
   GuardarMonitor(item:any){
     console.log(item.id)
@@ -42,8 +59,15 @@ export class CardComponent {
   }
 
   deleteMonitor(id: number): void{
-    this.monitorService.deleteMonitor(id).subscribe(() => {
-      this.monitorDeleted.emit(id);
-    });
+    this.monitorService.deleteMonitor(id).subscribe({ 
+      next: (data) => {
+        console.log("eliminado")
+        this.monitorDeleted.emit(id);
+
+      },
+      error: (error) => {
+        console.log('Error completo:', error);
+      }
+    }) 
   }
 }

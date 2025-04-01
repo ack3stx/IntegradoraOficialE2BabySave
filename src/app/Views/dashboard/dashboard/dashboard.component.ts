@@ -1,9 +1,10 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../cards/card/card.component';
 import { AgregarComponent } from '../cards/agregar/agregar.component';
 import { MonitorService } from '../../../core/services/monitores/monitor.service';
 import { MonitorModel } from '../../../core/models/monitor.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,7 @@ export class DashboardComponent implements OnInit
 {
 
   monitores : MonitorModel[]=[];
+  private router = inject(Router);
   
   constructor(public monitorService:MonitorService) {}
 

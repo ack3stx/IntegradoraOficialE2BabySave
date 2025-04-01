@@ -8,6 +8,7 @@ import { rutasGuard } from './core/guards/rutas.guard';
 import { DashboardComponent } from './Views/dashboard/dashboard/dashboard.component';
 import { MonitorComponent } from './Views/monitor/monitor.component';
 import { MonitoresComponent } from './Views/Admin/monitores/monitores.component';
+import { ResendEmailComponent } from './Views/auth/resend-email/resend-email.component';
 
 export const routes: Routes = [
     {
@@ -23,6 +24,11 @@ export const routes: Routes = [
     {
         path: 'register',
         component: RegisterComponent,
+        canActivate: [rolesGuard(0)]
+    },
+    {
+        path: 'resend-email',
+        component: ResendEmailComponent,
         canActivate: [rolesGuard(0)]
     },
     {

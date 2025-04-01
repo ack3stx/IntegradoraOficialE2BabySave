@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class MonitorService {
   private url = environment.apiUrl + '/monitores';
+  private datos = environment.apiUrl + '/datos-mongo';
   router = inject(Router)
 
   constructor(private http: HttpClient) {}
@@ -40,5 +41,10 @@ export class MonitorService {
 
   agregarSensor(idMonitor: number, idSensor: number): Observable<void> {
     return this.http.get<void>(`${environment.apiUrl}/sensor/${idMonitor}/${idSensor}`);
+  }
+
+  //DATOS DEL MONITOR QUE ESCOGIO A MONGO
+  datosMongo(idMonitor: number): Observable<any> {
+    return this.http.get<any>(`${this.datos}/${idMonitor}`);
   }
 }
