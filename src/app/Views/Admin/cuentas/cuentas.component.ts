@@ -4,16 +4,20 @@ import { Usuario } from '../../../core/models/usuario';
 import { CommonModule } from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import * as bootstrap from 'bootstrap';
+import { FindComponent } from '../../../shared/find/find.component';
+
 
 @Component({
   selector: 'app-cuentas',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,FindComponent],
   templateUrl: './cuentas.component.html',
   styleUrl: './cuentas.component.css'
 })
 export class CuentasComponent implements OnInit {
 
   usuarioSeleccionado: any = null;
+  terminoBusqueda: string = '';
+  usuariosFiltradosBusqueda: Usuario[] = [];
 
   seleccionarUsuario(usuario: Usuario) {
     this.usuarioSeleccionado = usuario;
@@ -26,6 +30,25 @@ export class CuentasComponent implements OnInit {
     }
   }
 
+  buscarUsuarios(termino: string): void {
+    this.terminoBusqueda = termino.toLowerCase();
+    
+    this.usuariosFiltradosBusqueda = this.users.filter(usuario => 
+      usuario.name.toLowerCase().includes(this.terminoBusqueda) ||
+      usuario.email.toLowerCase().includes(this.terminoBusqueda)
+    );
+  }
+
+  get usuariosFiltrados(): Usuario[] {
+    let usuariosFiltrados = this.terminoBusqueda ? this.usuariosFiltradosBusqueda : this.users;
+
+    if (this.filtroEstado === 'activos') {
+      return usuariosFiltrados.filter(usuario => usuario.cuenta_activa === 1);
+    } else if (this.filtroEstado === 'inactivos') {
+      return usuariosFiltrados.filter(usuario => usuario.cuenta_activa === 0);
+    }
+    return usuariosFiltrados;
+  }
 
   cerrarModal() {
     const modal = document.getElementById('confirmModal');
@@ -83,14 +106,6 @@ export class CuentasComponent implements OnInit {
    }
   }
 
-  get usuariosFiltrados(): Usuario[] {
-    if (this.filtroEstado === 'activos') {
-      return this.users.filter(usuario => usuario.cuenta_activa === 1);
-    } else if (this.filtroEstado === 'inactivos') {
-      return this.users.filter(usuario => usuario.cuenta_activa === 0);
-    }
-    return this.users;
-  }
 
   paginaActual: number = 1;
   itemsPorPagina: number = 5;

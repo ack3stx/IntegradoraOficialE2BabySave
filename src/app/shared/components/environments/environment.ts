@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
-    RutaApi: 'http://127.0.0.1:8000/api'
+    RutaApi: 'http://192.168.125.146:8000/api'
 
 };

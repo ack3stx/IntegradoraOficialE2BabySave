@@ -4,18 +4,11 @@
     <div class="filters-container mb-4">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <div class="search-container">
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="bi bi-search"></i>
-                        </span>
-                        <input 
-                            type="text" 
-                            class="form-control search-input" 
-                            placeholder="Buscar monitor..."
-                            aria-label="Buscar monitor">
-                    </div>
-                </div>
+                <app-find
+                    placeholder="Buscar monitor por nombre..."
+                    ariaLabel="Buscar monitor"
+                    (searchChange)="buscarMonitores($event)">
+                </app-find>
             </div>
             <div class="col-md-6">
                 <div class="status-filter">
@@ -47,6 +40,12 @@
                 </tr>
             </tbody>
         </table>
+
+    <div *ngIf="monitoresFiltrados.length === 0" 
+        class="alert alert-info text-center my-4">
+        <i class="bi bi-search me-2"></i>
+         No se encontraron usuarios que coincidan con la búsqueda
+    </div>
 
         <!-- Paginación -->
         <div class="d-flex justify-content-center mt-3">
