@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone,inject } from '@angular/core';
+import { Component, OnInit, NgZone, inject } from '@angular/core';
 import { RealtimechartsService } from '../../../core/services/real_time_charts/realtimecharts.service';
 import { CommonModule } from '@angular/common';
 import Pusher from 'pusher-js';
@@ -37,16 +37,50 @@ export class RealtimechartsComponent implements OnInit {
 
     this.channel.bind('sensor-data', (data: any) => {
       this.zone.run(() => {
+        // Solo procesar datos si hay un sensor seleccionado y el monitor ID coincide
         if (this.currentSensorPrefix && this.monitorId) {
+          const sensorData = data.sensordata;
           const dataKey = `${this.currentSensorPrefix}${this.monitorId}`;
-          if (data.sensordata && data.sensordata[0][dataKey] !== undefined) {
-            this.processSensorData(data.sensordata, true);
+          
+          // Solo procesar si es el sensor seleccionado y el monitor correcto
+          if (sensorData[dataKey] !== undefined && 
+              (!sensorData.id_monitor || sensorData.id_monitor.toString() === this.monitorId.toString())) {
+            
+            const fecha = sensorData.Fecha;
+            const value = sensorData[dataKey];
+            
+            if (fecha && value !== undefined) {
+              const hora = fecha.split(' ')[1];
+              console.log(`Actualizando gráfica de ${dataKey} con valor: ${value} a las ${hora}`);
+              this.updateChartWithNewPoint(hora, parseFloat(value));
+            }
           }
         }
       });
     });
 
     this.getSensors();
+  }
+
+  ngOnDestroy() {
+    console.log('Componente RealtimechartsComponent destruido - limpiando recursos Pusher');
+    
+    // Desuscribirse del canal específico
+    if (this.channel) {
+      this.channel.unbind_all(); // Quitar todos los event listeners
+      if (this.pusher) {
+        this.pusher.unsubscribe('sensor-websocket');
+      }
+    }
+    
+    // Desconectar Pusher completamente
+    if (this.pusher) {
+      this.pusher.disconnect();
+      this.pusher = null;
+    }
+    
+    // Destruir el gráfico para liberar recursos
+    this.chartsService.destroyChart();
   }
 
   onSensorChange(event: any) {
@@ -56,31 +90,82 @@ export class RealtimechartsComponent implements OnInit {
     const selectedSensor = this.data_sensor.find(s => s.id === sensorId);
     if (!selectedSensor) return;
 
-    this.currentSensorPrefix = selectedSensor.Identificador
+    this.currentSensorPrefix = selectedSensor.Identificador;
 
-    // 🔴 Asegurar que la gráfica anterior se destruya
+    // 🔴 Destroy previous chart
     this.chartsService.destroyChart();
 
-    // 🔵 Crear nueva gráfica antes de obtener datos
+    // 🔵 Create new chart before getting data
     this.chartsService.createChart();
 
-    // Cancelar la suscripción anterior a Pusher y volver a suscribirse
-    if (this.channel) {
-      this.channel.unbind('sensor-data');
+    // Actualizar el título del gráfico con el tipo de sensor actual
+    if (this.chartsService.chart) {
+      this.chartsService.chart.data.datasets[0].label = `Sensor ${this.currentSensorPrefix}${this.monitorId}`;
+      this.chartsService.chart.update();
     }
 
-    this.channel.bind('sensor-data', (data: any) => {
-      this.zone.run(() => {
-        if (this.currentSensorPrefix && this.monitorId) {
-          const dataKey = `${this.currentSensorPrefix}${this.monitorId}`;
-          if (data.sensordata && data.sensordata[0][dataKey] !== undefined) {
-            this.processSensorData(data.sensordata, true);
-          }
-        }
-      });
-    });
+    // No es necesario volver a vincular el evento Pusher,
+    // ya que el filtrado del sensor se hace en processRealtimeSensorData
 
     this.loadInitialData();
+  }
+
+  // Procesar datos en tiempo real desde Pusher
+  private processRealtimeSensorData(sensorData: any) {
+    if (!this.currentSensorPrefix || !this.monitorId) return;
+  
+    const dataKey = `${this.currentSensorPrefix}${this.monitorId}`;
+    
+    // IMPORTANTE: Verificar que sensorData contiene nuestro sensor específico
+    // y que el monitor ID coincide con el monitor seleccionado
+    if (sensorData[dataKey] === undefined || 
+        (sensorData.id_monitor && sensorData.id_monitor.toString() !== this.monitorId.toString())) {
+      // Si los datos no son para nuestro sensor o monitor, ignorarlos
+      return;
+    }
+    
+    // Verificar que el prefijo del sensor actual coincide con el sensor que estamos escuchando
+    // Este es el cambio clave para arreglar el problema
+    const currentSensorType = this.currentSensorPrefix;
+    const sensorPrefixInData = dataKey.replace(this.monitorId.toString(), '');
+    
+    if (sensorPrefixInData !== currentSensorType) {
+      // Si los datos recibidos no son para el sensor seleccionado, ignorarlos
+      return;
+    }
+    
+    const fecha = sensorData.Fecha;
+    const value = sensorData[dataKey];
+    
+    if (fecha && value !== undefined) {
+      // Extraer solo la parte de la hora (después del espacio)
+      const hora = fecha.split(' ')[1]; // Divide "2025-03-21 16:23:14" en ["2025-03-21", "16:23:14"]
+      
+      console.log(`Actualizando gráfica de ${dataKey} con valor: ${value} a las ${hora}`);
+      
+      // Actualizar el gráfico con el nuevo punto de datos
+      this.updateChartWithNewPoint(hora, parseFloat(value));
+    }
+  }
+
+  // Método auxiliar para añadir un nuevo punto al gráfico
+  private updateChartWithNewPoint(label: string, value: number) {
+    if (!this.chartsService.chart) return;
+    
+    const maxPoints = 30;
+    
+    // Añadir el nuevo punto al final (más reciente)
+    this.chartsService.chart.data.labels.push(label);
+    this.chartsService.chart.data.datasets[0].data.push(value);
+    
+    // Mantener solo los últimos maxPoints
+    if (this.chartsService.chart.data.labels.length > maxPoints) {
+      this.chartsService.chart.data.labels = this.chartsService.chart.data.labels.slice(-maxPoints);
+      this.chartsService.chart.data.datasets[0].data = this.chartsService.chart.data.datasets[0].data.slice(-maxPoints);
+    }
+    
+    // Actualizar el gráfico
+    this.chartsService.chart.update();
   }
 
   private processSensorData(sensorData: any[], isRealtime: boolean = false) {
@@ -96,7 +181,7 @@ export class RealtimechartsComponent implements OnInit {
   
       if (fecha && value !== undefined) {
         // Extraer solo la parte de la hora (después del espacio)
-        const hora = fecha.split(' ')[1]; // Esto dividirá "2025-03-21 16:23:14" en ["2025-03-21", "16:23:14"]
+        const hora = fecha.split(' ')[1];
         newLabels.push(hora);
         newDataValues.push(parseFloat(value));
       }
@@ -105,9 +190,14 @@ export class RealtimechartsComponent implements OnInit {
     const maxPoints = 30;
     
     if (this.chartsService.chart) {
+      // Actualizar el título del gráfico
+      this.chartsService.chart.data.datasets[0].label = `Sensor ${dataKey}`;
+      
+      // Añadir nuevos puntos de datos al final de los arrays (puntos de datos más antiguos)
       this.chartsService.chart.data.labels.push(...newLabels.reverse());
       this.chartsService.chart.data.datasets[0].data.push(...newDataValues.reverse());
       
+      // Mantener solo los últimos maxPoints
       if (this.chartsService.chart.data.labels.length > maxPoints) {
         this.chartsService.chart.data.labels = this.chartsService.chart.data.labels.slice(-maxPoints);
         this.chartsService.chart.data.datasets[0].data = this.chartsService.chart.data.datasets[0].data.slice(-maxPoints);
@@ -119,8 +209,6 @@ export class RealtimechartsComponent implements OnInit {
 
   private loadInitialData() {
     if (!this.currentSensorPrefix || !this.monitorId) return;
-
-    this.chartsService.createChart(); // Crear la nueva gráfica antes de recibir datos
 
     this.chartsService.getSensorData(this.currentSensorPrefix, this.monitorId)
       .subscribe((response: any) => {
@@ -144,8 +232,7 @@ export class RealtimechartsComponent implements OnInit {
     );
   }
 
-  historicas(monitorId:number | null)
-  {
-    this.router.navigate(['charts',monitorId]);
+  historicas(monitorId: number | null) {
+    this.router.navigate(['charts', monitorId]);
   }
 }
