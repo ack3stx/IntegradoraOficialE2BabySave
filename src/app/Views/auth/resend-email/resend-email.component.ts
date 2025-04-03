@@ -1,41 +1,41 @@
-import { Component, inject } from '@angular/core';
-import { Validators, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RecoveryService } from '../../../core/services/resend-email/recovery.service';
-import { Router, RouterModule } from '@angular/router';
+import { Component,inject } from '@angular/core';
+import { Validators,FormControl,FormGroup,ReactiveFormsModule } from '@angular/forms';
+import { ResendService } from '../../../core/services/resend-email/resend.service';
+import { Router,RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ResendE } from '../../../core/models/resend-e';
 
 @Component({
-  selector: 'app-password-recovery',
-  imports: [ReactiveFormsModule, RouterModule],
-  templateUrl: './password-recovery.component.html',
-  styleUrl: './password-recovery.component.css'
+  selector: 'app-resend-email',
+  imports: [ReactiveFormsModule,RouterModule],
+  templateUrl: './resend-email.component.html',
+  styleUrl: './resend-email.component.css'
 })
-export class PasswordRecoveryComponent {
+export class ResendEmailComponent {
 
-  private recoveryService = inject(RecoveryService);
+  private resendService =inject(ResendService);
   private router = inject(Router);
   private tostadas = inject(ToastrService);
 
-  FormularioRecovery = new FormGroup({
+  FormularioRegister = new FormGroup({
     email: new FormControl('', [
       Validators.required,
       Validators.email
     ])
   });
 
-  onRecover() {
-    if (this.FormularioRecovery.valid) {
-      const formValues = this.FormularioRecovery.value;
+  onLogin() {
+    if (this.FormularioRegister.valid) {
+      const formValues = this.FormularioRegister.value;
 
-      const recoveryData: ResendE = {
+      const reenvioData:ResendE  = {
         email: formValues.email || ''
       };
-
-      this.recoveryService.recovery(recoveryData).subscribe({
+      
+      this.resendService.reenvio(reenvioData).subscribe({
         next: (response) => {
-          this.tostadas.success('Recuperación exitosa');
-          this.FormularioRecovery.reset();
+          this.tostadas.success('Reenvio exitoso');
+          this.FormularioRegister.reset();
           this.router.navigate(['/login']);
         },
         error: (error) => {
@@ -52,9 +52,11 @@ export class PasswordRecoveryComponent {
           console.log('Error completo:', error);
         }
       });
-    } else {
+    }
+    else {
       this.tostadas.error('Datos incorrectos');
       console.log('Datos inválidos', 'Error');
     }
   }
+
 }
