@@ -86,3 +86,14 @@
 .delete-btn:hover {
     background-color: #c2b2b2;
 }
+
+.active-monitor {
+    border: 2px solid #28a745;  /* Verde */
+    background-color: rgba(40, 167, 69, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+
+.red-circle {
+    color: red;
+}
