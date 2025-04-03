@@ -92,7 +92,7 @@ export class CardComponent implements OnInit{
     }) 
   }
 
-  offBocina(off:number,event:Event)
+  offBocina(off:string,event:Event)
     {
       event.stopPropagation();
       console.log("ya se ba mateo");

@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-block">
             <h2>
-                <fa-icon class="facircle fa-2xs" [icon]="item.id === id_monitor ? fasolid : faCircle" [ngClass]="{'red-circle': item.id === id_monitor}"></fa-icon>
+                <fa-icon class="facircle fa-2xs" [icon]="item.id == id_monitor ? fasolid : faCircle" [ngClass]="{'red-circle': item.id == id_monitor}"></fa-icon>
                 {{ item.Nombre_Monitor }}
             </h2>
             <h4 class="text-center">{{ item.Ubicacion }}</h4>
@@ -14,7 +14,7 @@
                 <button class="rounded-btn delete-btn" (click)="deleteMonitor(item.id)">
                     <fa-icon [icon]="faTrash"></fa-icon>
                 </button>
-                <button *ngIf="item.id === id_monitor" class="rounded-btn delete-btn" (click)="offBocina(0,$event)">
+                <button *ngIf="item.id == id_monitor" class="rounded-btn delete-btn" (click)="offBocina('0',$event)">
                     <fa-icon [icon]="faPowerOff"></fa-icon>
                 </button>
             </div>

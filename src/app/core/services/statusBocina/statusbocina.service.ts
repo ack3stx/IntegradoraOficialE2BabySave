@@ -35,7 +35,7 @@ export class StatusbocinaService {
     return this.estado.asObservable();
    }  
 
-  apagarBocina(estado:number): Observable<any> 
+  apagarBocina(estado:string): Observable<any> 
   {
       return this.http.post<any>(`${environment.apiUrl}/bocina/estado`, estado);
   }
