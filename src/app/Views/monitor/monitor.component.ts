@@ -87,9 +87,25 @@ export class MonitorComponent implements OnInit {
     }
   }
 
-  actualizarSensores(monitorId: number): void {
+/*   actualizarSensores(monitorId: number): void {
     this.sensors.filter(s => s.checked).forEach(sensor => {
       this.monitorService.agregarSensor(monitorId, sensor.id).subscribe();
     });
-  }
+  } */
+
+    actualizarSensores(monitorId: number): void {
+      const selectedSensorIds = this.sensors
+      .filter(sensor => sensor.checked)     
+      .map(sensor => sensor.id);
+
+
+      this.monitorService.agregarSensor(monitorId, selectedSensorIds).subscribe({
+        next: () => {
+          console.log("monitor creado")
+        },
+        error: (err) => {
+          console.error('Error al actualizar sensores', err);
+        }
+      });
+    }
 }
