@@ -16,7 +16,7 @@ export class MonitorComponent implements OnInit {
   monitorForm: FormGroup;
   isEditMode = false;
   monitorId?: number;
-
+  isSubmitting = false; // Para bloquear el botón al enviar
   sensors = [
     { id: 1, name: 'Temperatura', checked: false },
     { id: 4, name: 'Calidad del Aire', checked: false },
@@ -65,14 +65,18 @@ export class MonitorComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-    if (this.monitorForm.invalid) return;
+  get hasSelectedSensors(): boolean {
+    return this.sensors.some(sensor => sensor.checked);
+  }
 
+  onSubmit(): void {
+    if (this.monitorForm.invalid || (!this.isEditMode && !this.hasSelectedSensors) || this.isSubmitting) return;
+    
+    this.isSubmitting = true; // Bloquea el botón tras el primer envío
     const monitorData = this.monitorForm.value;
 
     if (this.isEditMode && this.monitorId) {
       this.monitorService.updateMonitor(this.monitorId, monitorData).subscribe(() => {
-        this.actualizarSensores(this.monitorId!);
         this.router.navigate(['/dashboard']);
       });
     } else {
@@ -88,5 +92,4 @@ export class MonitorComponent implements OnInit {
       this.monitorService.agregarSensor(monitorId, sensor.id).subscribe();
     });
   }
-
 }
