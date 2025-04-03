@@ -23,7 +23,6 @@ export class ResendEmailComponent {
       Validators.email
     ])
   });
-  
 
   onLogin() {
     if (this.FormularioRegister.valid) {

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { SensorData } from '../../models/sensor-data';
 import { Observable } from 'rxjs';
+import { SensorInterface } from '../../models/sensor.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,9 @@ export class ChartsServiceService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerDatosSensor(idSensor: number, fechaLimite: string): Observable<{labels: string[], datos: number[]}> {
-    return this.http.get<SensorData>(`${this.apiUrl}/hora/${idSensor}/${fechaLimite}`).pipe(
+  obtenerDatosSensor(idSensor: number, sensorSeleccionado: number, fechaLimite: string): Observable<{labels: string[], datos: number[]}> {
+    const idMonitor = 1; 
+    return this.http.get<SensorData>(`${this.apiUrl}/promedio-hora/${idMonitor}/${idSensor}/${fechaLimite}`).pipe(
       map(response => ({
         labels: Array.from({length: 24}, (_, i) => `${i.toString().padStart(2, '0')}:00`),
         datos: response.resultados[0].promedios_por_hora
@@ -79,5 +81,16 @@ export class ChartsServiceService {
   obtenerFechaActual(): string {
     const fecha = new Date();
     return fecha.toISOString().split('T')[0];
+  }
+  obtenerSensoresDisponibles(monitorId: number): Observable<SensorInterface[]> {
+    return this.http.get<SensorInterface[]>(`${this.apiUrl}/sensores/${monitorId}`).pipe(
+      map(response => {
+        if (!response) {
+          console.error('Respuesta inválida del servidor:', response);
+          return [];
+        }
+        return response;
+      })
+    );
   }
 }

@@ -18,11 +18,11 @@ export class MonitorComponent implements OnInit {
   monitorId?: number;
 
   sensors = [
-    { id: 2, name: 'Temperatura', checked: false },
-    { id: 1, name: 'Calidad del Aire', checked: false },
+    { id: 1, name: 'Temperatura', checked: false },
+    { id: 4, name: 'Calidad del Aire', checked: false },
     { id: 5, name: 'Nivel de Luz', checked: false },
-    { id: 4, name: 'Estado del Bebé', checked: false },
-    { id: 3, name: 'Movimiento del Bebé', checked: false }
+    { id: 3, name: 'Estado del Bebé', checked: false },
+    { id: 2, name: 'Movimiento del Bebé', checked: false }
   ];
 
   constructor(
