@@ -54,7 +54,7 @@ export class RealtimechartsComponent implements OnInit {
     const selectedSensor = this.data_sensor.find(s => s.id === sensorId);
     if (!selectedSensor) return;
 
-    this.currentSensorPrefix = selectedSensor.Nombre_Sensor.substring(0, 3).toUpperCase();
+    this.currentSensorPrefix = selectedSensor.Identificador
 
     // 🔴 Asegurar que la gráfica anterior se destruya
     this.chartsService.destroyChart();
@@ -83,30 +83,34 @@ export class RealtimechartsComponent implements OnInit {
 
   private processSensorData(sensorData: any[], isRealtime: boolean = false) {
     if (!sensorData || !this.currentSensorPrefix || !this.monitorId) return;
-
+  
     const dataKey = `${this.currentSensorPrefix}${this.monitorId}`;
     const newLabels: string[] = [];
     const newDataValues: number[] = [];
-
+  
     sensorData.forEach(item => {
       const fecha = item.Fecha;
       const value = item[dataKey];
-
+  
       if (fecha && value !== undefined) {
-        newLabels.push(fecha);
+        // Extraer solo la parte de la hora (después del espacio)
+        const hora = fecha.split(' ')[1]; // Esto dividirá "2025-03-21 16:23:14" en ["2025-03-21", "16:23:14"]
+        newLabels.push(hora);
         newDataValues.push(parseFloat(value));
       }
     });
-
-    // Resetear la gráfica solo si no es una actualización en tiempo real
-    if (!isRealtime && this.chartsService.chart) {
-      this.chartsService.chart.data.labels = [];
-      this.chartsService.chart.data.datasets[0].data = [];
-    }
-
+  
+    const maxPoints = 30;
+    
     if (this.chartsService.chart) {
       this.chartsService.chart.data.labels.push(...newLabels.reverse());
       this.chartsService.chart.data.datasets[0].data.push(...newDataValues.reverse());
+      
+      if (this.chartsService.chart.data.labels.length > maxPoints) {
+        this.chartsService.chart.data.labels = this.chartsService.chart.data.labels.slice(-maxPoints);
+        this.chartsService.chart.data.datasets[0].data = this.chartsService.chart.data.datasets[0].data.slice(-maxPoints);
+      }
+      
       this.chartsService.chart.update();
     }
   }
