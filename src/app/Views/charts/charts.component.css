@@ -1,76 +1,29 @@
-  
-.filters-container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.status-filter {
-  max-width: 200px; /* Make it less wide */
-  margin: 0 0 20px auto; /* Change from auto on both sides to auto only on left */
-  position: relative;
-  z-index: 2; /* Ensure it sits above other elements */
-}
-
-.select-styled {
-    background: linear-gradient(to right, #66ccff, #ebe5e5);
-    color: #fffafa;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    border: none;
-    width: 100%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.select-styled option {
-    background-color: white;
-    color: #333;
-    padding: 10px;
-}
-
-.select-styled:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(102, 204, 255, 0.5);
-}
-
-.select-styled:hover {
-    transform: scale(1.02);
-}
-
-
-
-.chart-container {
-  margin: 20px auto;
-  padding: 32px;
-  position: relative;
-  width: 80vw;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  background-color: white;
-}
-
-.chart-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Container styling */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f8ff; /* Light blue background */
   min-height: 100vh;
-  padding-top: 40px;
-  margin-top: 45px;
+  box-sizing: border-box;
 }
 
-.chart-header {
+.admin-container{
+  padding: 80px;
+  padding-top: 100px;
+}
+
+/* Header titles styling */
+.header-titles {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: -30px; /* Lo mueve hacia arriba */
-  left: 50%;
-  transform: translateX(-50%);
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
+/* Chart title styling */
 .chart-title {
   background: linear-gradient(to right, #66ccff, #ebe5e5);
   color: #fff;
@@ -80,21 +33,92 @@
   border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   white-space: nowrap;
-  margin-right: 10px;
 }
 
+/* Selector controls styling */
+.selector-controls {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* Status filter styling */
+.status-filter {
+  max-width: 200px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Select styling */
+.select-styled {
+  background: linear-gradient(to right, #66ccff, #ebe5e5);
+  color: #fffafa;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.select-styled option {
+  background-color: white;
+  color: #333;
+  padding: 10px;
+}
+
+.select-styled:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(102, 204, 255, 0.5);
+}
+
+.select-styled:hover {
+  transform: scale(1.02);
+}
+
+/* Chart wrapper */
+.chart-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Chart container */
+.chart-container {
+  width: 100%;
+  height: 500px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+/* Canvas sizing */
 canvas {
   width: 100% !important;
   height: 100% !important;
 }
 
+/* Responsive styles */
 @media (max-width: 768px) {
-    .select-styled {
-        font-size: 14px;
-        padding: 8px 15px;
-    }
-    
-    .status-filter {
-        max-width: 100%;
-    }
+  .header-titles,
+  .selector-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .chart-title {
+    font-size: 16px;
+    padding: 8px 15px;
+  }
+  
+  .status-filter {
+    max-width: 100%;
+    width: 100%;
+  }
 }
