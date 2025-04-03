@@ -1,8 +1,9 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone,inject } from '@angular/core';
 import { RealtimechartsService } from '../../../core/services/real_time_charts/realtimecharts.service';
 import { CommonModule } from '@angular/common';
 import Pusher from 'pusher-js';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-realtimecharts',
@@ -15,6 +16,7 @@ export class RealtimechartsComponent implements OnInit {
   selectedSensorId: number | null = null;
   monitorId: number | null = null;
   currentSensorPrefix: string | null = null;
+  private router = inject(Router);
 
   constructor(
     public chartsService: RealtimechartsService,
@@ -136,5 +138,10 @@ export class RealtimechartsComponent implements OnInit {
       },
       error => console.error('Error fetching sensors:', error)
     );
+  }
+
+  historicas(monitorId:number | null)
+  {
+    this.router.navigate(['charts',monitorId]);
   }
 }

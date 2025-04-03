@@ -24,8 +24,11 @@ export class PasswordRecoveryComponent {
     ])
   });
 
+  isSubmitting = false; 
+
   onRecover() {
     if (this.FormularioRecovery.valid) {
+      this.isSubmitting = true;
       const formValues = this.FormularioRecovery.value;
 
       const recoveryData: ResendE = {
@@ -36,9 +39,11 @@ export class PasswordRecoveryComponent {
         next: (response) => {
           this.tostadas.success('Recuperación exitosa');
           this.FormularioRecovery.reset();
+          this.isSubmitting = false;
           this.router.navigate(['/login']);
         },
         error: (error) => {
+          this.isSubmitting = false;
           if (error.status === 422 || error.status === 403 || error.status === 404) {
             const validationErrors = error.error;
             for (const field in validationErrors) {

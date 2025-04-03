@@ -21,7 +21,7 @@ export const routes: Routes = [
         canActivate : [rolesGuard(2)]
     },
     {
-        path: 'charts',
+        path: 'charts/:id',
         component: ChartsComponent,
         canActivate : [rolesGuard(2)]
     },

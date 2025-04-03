@@ -4,10 +4,11 @@ import { ResendService } from '../../../core/services/resend-email/resend.servic
 import { Router,RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ResendE } from '../../../core/models/resend-e';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-resend-email',
-  imports: [ReactiveFormsModule,RouterModule],
+  imports: [ReactiveFormsModule,RouterModule, CommonModule],
   templateUrl: './resend-email.component.html',
   styleUrl: './resend-email.component.css'
 })
@@ -24,8 +25,12 @@ export class ResendEmailComponent {
     ])
   });
 
+  
+  isSubmitting = false; 
+
   onLogin() {
     if (this.FormularioRegister.valid) {
+      this.isSubmitting = true;
       const formValues = this.FormularioRegister.value;
 
       const reenvioData:ResendE  = {
@@ -33,12 +38,14 @@ export class ResendEmailComponent {
       };
       
       this.resendService.reenvio(reenvioData).subscribe({
-        next: (response) => {
+        next: () => {
           this.tostadas.success('Reenvio exitoso');
           this.FormularioRegister.reset();
+          this.isSubmitting = false;
           this.router.navigate(['/login']);
         },
         error: (error) => {
+          this.isSubmitting = false;
           if (error.status === 422 || error.status === 403 || error.status === 404) {
             const validationErrors = error.error;
             for (const field in validationErrors) {

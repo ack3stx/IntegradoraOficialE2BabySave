@@ -61,7 +61,7 @@
         </div>
 
         <div class="d-grid mt-4">
-          <button class="btn" type="submit" [disabled]="monitorForm.invalid">
+          <button class="btn" type="submit" [disabled]="monitorForm.invalid" [disabled]="isSubmitting" class="{{ isSubmitting ? 'opacity' : '' }}">
             {{ isEditMode ? 'Actualizar Monitor' : 'Crear Monitor' }}
           </button>
         </div>

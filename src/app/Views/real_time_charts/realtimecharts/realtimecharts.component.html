@@ -8,6 +8,7 @@
         <select class="chart-title" (change)="onSensorChange($event)">
           <option *ngFor="let sensor of data_sensor" [value]="sensor.id">{{sensor.Nombre_Sensor}}</option>
         </select>
+        <button class="chart-title" (click)="historicas(monitorId)">Graficas Históricas</button>
       </div>
       <!-- Gráfica -->
       <canvas id="MyChart"></canvas>
