@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MonitorService } from '../../core/services/monitores/monitor.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-monitor-form',
@@ -28,8 +29,9 @@ export class MonitorComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private monitorService: MonitorService,
+    private router: Router,
     private route: ActivatedRoute,
-    private router: Router
+    private toastr: ToastrService
   ) {
     this.monitorForm = this.fb.group({
       nombre: ['', [Validators.required, Validators.minLength(5)]],
@@ -77,10 +79,12 @@ export class MonitorComponent implements OnInit {
 
     if (this.isEditMode && this.monitorId) {
       this.monitorService.updateMonitor(this.monitorId, monitorData).subscribe(() => {
+        this.toastr.success('Monitor actualizado correctamente', 'Éxito');
         this.router.navigate(['/dashboard']);
       });
     } else {
       this.monitorService.createMonitor(monitorData).subscribe(response => {
+        this.toastr.success('Monitor creado correctamente', 'Éxito');
         this.actualizarSensores(response.id);
         this.router.navigate(['/dashboard']);
       });

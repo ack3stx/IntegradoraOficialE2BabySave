@@ -12,6 +12,7 @@ import { MonitorModel } from '../../../../core/models/monitor.model';
 import Pusher from 'pusher-js';
 import { StatusbocinaService } from '../../../../core/services/statusBocina/statusbocina.service';
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class CardComponent implements OnInit{
   fasolid = faSolid;
   router = inject(Router);
   private estado = inject(StatusbocinaService)
+  private toastr = inject(ToastrService);
   private off =0;
 
   id_monitor!:number;
@@ -83,6 +85,7 @@ export class CardComponent implements OnInit{
     this.monitorService.deleteMonitor(id).subscribe({ 
       next: (data) => {
         console.log("eliminado")
+        this.toastr.success('Monitor eliminado correctamente', 'Éxito')
         this.monitorDeleted.emit(id);
 
       },

@@ -5,6 +5,7 @@ import { authTokenInterceptor } from './core/interceptors/auth/auth-token.interc
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { authInterceptor } from './core/interceptors/auth/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     // AÑADIMOS EL INTERCEPTOR DE AUTORIZACION
     // TODAS LAS PETICIONES PASARAN POR ESTE INTERCEPTOR
     provideHttpClient(
-      withInterceptors([authTokenInterceptor])
+      withInterceptors([authTokenInterceptor, authInterceptor])
     ),
     provideToastr({
       timeOut: 3000,                 // Duración del mensaje

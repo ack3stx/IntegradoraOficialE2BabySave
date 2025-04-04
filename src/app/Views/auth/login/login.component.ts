@@ -72,7 +72,7 @@ export class LoginComponent {
         },
         error: (error) => {
           if(error.status == 403){
-            this.toastr.error('Cuenta No Vericada Favor De Revisar Su Correo', 'Error');
+            this.toastr.error('Tu cuenta no ha sido activada.', 'Error');
           }
           else if(error.status == 401){
             this.toastr.error('Credenciales inválidas', 'Error');
