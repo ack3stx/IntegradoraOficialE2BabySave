@@ -55,3 +55,24 @@ canvas {
     width: 100% !important;
     height: 100% !important;
 }
+
+.no-data-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-top: 40px;
+    margin-top: 0;
+}
+
+.no-data-message {
+    margin: 0 auto;
+    padding: 32px;
+    width: 80vw;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    text-align: center;
+    font-size: 1.2em;
+    color: #ff0000; /* Rojo para resaltar el mensaje */
+}

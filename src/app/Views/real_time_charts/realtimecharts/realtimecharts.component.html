@@ -1,5 +1,13 @@
 <div class="container">
-  <div class="chart-wrapper">
+  <!-- Mostrar mensaje si el monitor no es válido -->
+  <div *ngIf="!isMonitorValid" class="no-data-wrapper">
+    <div class="no-data-message">
+      <p>{{ noDataMessage }}</p>
+    </div>
+  </div>
+
+  <!-- Mostrar contenido principal si el monitor es válido -->
+  <div *ngIf="isMonitorValid" class="chart-wrapper">
     <div class="chart-container">
       <!-- Letrero encima de la gráfica -->
       <div class="chart-header">

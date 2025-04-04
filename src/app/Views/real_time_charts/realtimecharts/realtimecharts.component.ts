@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import Pusher from 'pusher-js';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { MonitorService } from '../../../core/services/monitores/monitor.service';
+import { MonitorModel } from '../../../core/models/monitor.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-realtimecharts',
@@ -16,12 +19,16 @@ export class RealtimechartsComponent implements OnInit {
   selectedSensorId: number | null = null;
   monitorId: number | null = null;
   currentSensorPrefix: string | null = null;
+  isMonitorValid: boolean = false; // Nueva bandera para validar el monitor
+  noDataMessage: string = ''; // Mensaje para mostrar si no hay datos disponibles
   private router = inject(Router);
 
   constructor(
     public chartsService: RealtimechartsService,
     private zone: NgZone,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService, // Inyectar el servicio ToastrService
+    private monitorService: MonitorService // Inyectar el servicio MonitorService
   ) 
   { 
     this.monitorId = this.route.snapshot.params['id'];  
@@ -31,35 +38,7 @@ export class RealtimechartsComponent implements OnInit {
   private channel: any = null;
 
   ngOnInit() {
-    Pusher.logToConsole = true;
-    this.pusher = new Pusher('f19492c9cd3edadca29d', { cluster: 'us2' });
-    this.channel = this.pusher.subscribe('sensor-websocket');
-
-    this.channel.bind('sensor-data', (data: any) => {
-      this.zone.run(() => {
-        // Solo procesar datos si hay un sensor seleccionado y el monitor ID coincide
-        if (this.currentSensorPrefix && this.monitorId) {
-          const sensorData = data.sensordata;
-          const dataKey = `${this.currentSensorPrefix}${this.monitorId}`;
-          
-          // Solo procesar si es el sensor seleccionado y el monitor correcto
-          if (sensorData[dataKey] !== undefined && 
-              (!sensorData.id_monitor || sensorData.id_monitor.toString() === this.monitorId.toString())) {
-            
-            const fecha = sensorData.Fecha;
-            const value = sensorData[dataKey];
-            
-            if (fecha && value !== undefined) {
-              const hora = fecha.split(' ')[1];
-              console.log(`Actualizando gráfica de ${dataKey} con valor: ${value} a las ${hora}`);
-              this.updateChartWithNewPoint(hora, parseFloat(value));
-            }
-          }
-        }
-      });
-    });
-
-    this.getSensors();
+    this.monitoresUsuario();
   }
 
   ngOnDestroy() {
@@ -234,5 +213,64 @@ export class RealtimechartsComponent implements OnInit {
 
   historicas(monitorId: number | null) {
     this.router.navigate(['charts', monitorId]);
+  }
+
+  monitoresUsuario() {
+    this.monitorService.getMonitores().subscribe(
+      (monitores: MonitorModel[]) => {
+        const monitorIds = monitores.map(monitor => monitor.id);
+        //console.log('IDs de los monitores del usuario:', monitorIds);
+
+        const monitorIdNumber = Number(this.monitorId);
+
+        // Validar si el monitorId actual está en la lista de IDs
+        if (monitorIdNumber && monitorIds.includes(monitorIdNumber)) {
+          this.isMonitorValid = true; // El monitor es válido
+          //console.log('El monitor ID es válido:', this.monitorId);
+
+          // Cargar datos solo si el monitor es válido
+          this.getSensors();
+          this.subscribeToPusher();
+        } else {
+          this.isMonitorValid = false; // El monitor no es válido
+          this.noDataMessage = 'No hay información disponible'; // Mostrar mensaje
+          this.toastr.error('Monitor inválido', 'Error');
+          // console.error('El monitor ID no es válido:', this.monitorId);
+        }
+      },
+      error => {
+        console.error('Error al obtener los monitores del usuario:', error);
+        this.noDataMessage = 'No hay información disponible'; // Mostrar mensaje en caso de error
+      }
+    );
+  }
+
+  subscribeToPusher() {
+    // Pusher.logToConsole = true;
+    this.pusher = new Pusher('f19492c9cd3edadca29d', { cluster: 'us2' });
+    this.channel = this.pusher.subscribe('sensor-websocket');
+
+    this.channel.bind('sensor-data', (data: any) => {
+      this.zone.run(() => {
+        if (this.currentSensorPrefix && this.monitorId) {
+          const sensorData = data.sensordata;
+          const dataKey = `${this.currentSensorPrefix}${this.monitorId}`;
+
+          if (
+            sensorData[dataKey] !== undefined &&
+            (!sensorData.id_monitor || sensorData.id_monitor.toString() === this.monitorId.toString())
+          ) {
+            const fecha = sensorData.Fecha;
+            const value = sensorData[dataKey];
+
+            if (fecha && value !== undefined) {
+              const hora = fecha.split(' ')[1];
+              // console.log(`Actualizando gráfica de ${dataKey} con valor: ${value} a las ${hora}`);
+              this.updateChartWithNewPoint(hora, parseFloat(value));
+            }
+          }
+        }
+      });
+    });
   }
 }
