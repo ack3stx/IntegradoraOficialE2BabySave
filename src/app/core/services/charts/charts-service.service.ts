@@ -16,9 +16,9 @@ export class ChartsServiceService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerDatosSensor(idSensor: number, sensorSeleccionado: number, fechaLimite: string): Observable<{labels: string[], datos: number[]}> {
-    const idMonitor = 1; 
-    return this.http.get<SensorData>(`${this.apiUrl}/promedio-hora/${idMonitor}/${idSensor}/${fechaLimite}`).pipe(
+  obtenerDatosSensor( idMonitor:number,sensorSeleccionado: number, fechaLimite: string): Observable<{labels: string[], datos: number[]}> {
+    
+    return this.http.get<SensorData>(`${this.apiUrl}/promedio-hora/${idMonitor}/${sensorSeleccionado}/${fechaLimite}`).pipe(
       map(response => ({
         labels: Array.from({length: 24}, (_, i) => `${i.toString().padStart(2, '0')}:00`),
         datos: response.resultados[0].promedios_por_hora
