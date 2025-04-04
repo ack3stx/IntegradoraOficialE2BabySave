@@ -39,9 +39,14 @@ export class MonitorService {
     return this.http.get<number[]>(`${environment.apiUrl}/sensores/${idMonitor}`);
   }
 
-  agregarSensor(idMonitor: number, idSensor: number): Observable<void> {
+  /* agregarSensor(idMonitor: number, idSensor: number): Observable<void> {
     return this.http.get<void>(`${environment.apiUrl}/sensor/${idMonitor}/${idSensor}`);
-  }
+  } */
+
+    
+    agregarSensor(idMonitor: number,sensores:number[]): Observable<void> {
+      return this.http.post<void>(`${environment.apiUrl}/sensor/${idMonitor}`,{sensores});
+    } 
 
   //DATOS DEL MONITOR QUE ESCOGIO A MONGO
   datosMongo(idMonitor: number): Observable<any> {
