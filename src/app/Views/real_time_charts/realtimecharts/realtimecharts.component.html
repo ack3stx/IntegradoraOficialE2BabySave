@@ -1,17 +1,24 @@
-<div class="container">
-  <div class="chart-wrapper">
-    <div class="chart-container">
-      <!-- Letrero encima de la gráfica -->
-      <div class="chart-header">
-        <div class="chart-title">Datos en Vivo</div>
-        <div class="chart-title">Selecciona un sensor para ver su información:</div>
-        <select class="chart-title" (change)="onSensorChange($event)">
-          <option *ngFor="let sensor of data_sensor" [value]="sensor.id">{{sensor.Nombre_Sensor}}</option>
-        </select>
-        <button class="chart-title" (click)="historicas(monitorId)">Graficas Históricas</button>
+<div class="lol">
+  <div class="background-overlay"></div>
+  <div class="container">
+    <div class="chart-wrapper">
+      <div class="chart-container">
+        <!-- Letrero encima de la gráfica -->
+        <div class="chart-header">
+          <div class="chart-title">Datos en Vivo</div>
+          <div class="chart-title">Selecciona un sensor para ver su información:</div>
+          <div class="select-container">
+            <select class="chart-title" (change)="onSensorChange($event)">
+              <option *ngFor="let sensor of data_sensor" [value]="sensor.id">
+                {{sensor.Nombre_Sensor}}
+              </option>
+            </select>
+          </div>
+          <button class="chart-title" (click)="toggleCharts()">{{ buttonText }}</button>
+        </div>
+        <!-- Gráfica -->
+        <canvas id="MyChart"></canvas>
       </div>
-      <!-- Gráfica -->
-      <canvas id="MyChart"></canvas>
     </div>
   </div>
 </div>

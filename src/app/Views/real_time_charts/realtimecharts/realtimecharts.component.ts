@@ -16,6 +16,7 @@ export class RealtimechartsComponent implements OnInit {
   selectedSensorId: number | null = null;
   monitorId: number | null = null;
   currentSensorPrefix: string | null = null;
+  buttonText: string = 'Gráficas Históricas'; // Texto inicial del botón
   private router = inject(Router);
 
   constructor(
@@ -34,7 +35,7 @@ export class RealtimechartsComponent implements OnInit {
     Pusher.logToConsole = true;
     this.pusher = new Pusher('f19492c9cd3edadca29d', { cluster: 'us2' });
     this.channel = this.pusher.subscribe('sensor-websocket');
-
+  
     this.channel.bind('sensor-data', (data: any) => {
       this.zone.run(() => {
         // Solo procesar datos si hay un sensor seleccionado y el monitor ID coincide
@@ -58,8 +59,29 @@ export class RealtimechartsComponent implements OnInit {
         }
       });
     });
-
+  
     this.getSensors();
+    this.updateButtonText(); // Llama a la función para actualizar el texto del botón
+  }
+  
+  // Nueva función para actualizar el texto del botón dinámicamente
+  private updateButtonText() {
+    const currentRoute = this.router.url;
+    if (currentRoute.includes('charts')) {
+      this.buttonText = 'Regresar a Gráficas en Vivo';
+    } else {
+      this.buttonText = 'Gráficas Históricas';
+    }
+  }
+  
+  // Modifica la acción del botón para cambiar entre rutas
+  toggleCharts() {
+    const currentRoute = this.router.url;
+    if (currentRoute.includes('charts')) {
+      this.router.navigate(['/live', this.monitorId]); // Navega a 'live' con el id del monitor
+    } else {
+      this.router.navigate(['/charts', this.monitorId]); // Navega a 'charts' con el id del monitor
+    }
   }
 
   ngOnDestroy() {

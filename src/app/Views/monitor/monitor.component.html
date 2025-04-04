@@ -67,7 +67,9 @@
             {{ isEditMode ? 'Actualizar Monitor' : 'Crear Monitor' }}
           </button>
         </div>
-        
+        <div class="register-link">
+          <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Regresar</a>
+        </div>
       </form>
     </div>
   </div>

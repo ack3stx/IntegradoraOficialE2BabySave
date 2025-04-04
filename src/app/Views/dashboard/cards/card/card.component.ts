@@ -13,6 +13,8 @@ import Pusher from 'pusher-js';
 import { StatusbocinaService } from '../../../../core/services/statusBocina/statusbocina.service';
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
+import { faChartBar } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -24,6 +26,8 @@ import { ToastrService } from 'ngx-toastr';
 export class CardComponent implements OnInit{
   monitorService = inject(MonitorService);
   faTrash = faTrash;
+  faChartBar = faChartBar;
+  faChartLine = faChartLine;
   faPen=faPen;
   faPowerOff=faPowerOff;
   faCircle=faRegular;

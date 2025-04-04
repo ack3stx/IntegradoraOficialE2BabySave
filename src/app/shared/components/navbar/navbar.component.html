@@ -20,13 +20,13 @@
               <a class="nav-link" routerLink="/register" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Register</a>
             </li>
             <li class="nav-item" *ngIf="Role(2)">
-              <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Dashboard</a>
+              <a class="nav-link" routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Monitores</a>
             </li>
             <li class="nav-item" *ngIf="Role(2)">
               <a class="nav-link" routerLink="/perfil" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Perfil</a>
             </li>
             <li class="nav-item" *ngIf="Role(3)">
-              <a class="nav-link" routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Dashboard</a>
+              <a class="nav-link" routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Inicio</a>
             </li>
             <li class="nav-item" *ngIf="Role(3)">
               <a class="nav-link" routerLink="/admin/users" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Gestion Usuarios</a>
