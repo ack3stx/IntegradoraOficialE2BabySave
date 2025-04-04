@@ -21,6 +21,7 @@ export class RealtimechartsComponent implements OnInit {
   currentSensorPrefix: string | null = null;
   isMonitorValid: boolean = false; // Nueva bandera para validar el monitor
   noDataMessage: string = ''; // Mensaje para mostrar si no hay datos disponibles
+  buttonText: string = 'Gráficas Históricas'; // Texto inicial del botón
   private router = inject(Router);
 
   constructor(
@@ -230,6 +231,7 @@ export class RealtimechartsComponent implements OnInit {
 
           // Cargar datos solo si el monitor es válido
           this.getSensors();
+          this.updateButtonText(); // Actualizar el texto del botón al cargar los monitores
           this.subscribeToPusher();
         } else {
           this.isMonitorValid = false; // El monitor no es válido
@@ -272,5 +274,25 @@ export class RealtimechartsComponent implements OnInit {
         }
       });
     });
+  }
+
+  // Nueva función para actualizar el texto del botón dinámicamente
+  private updateButtonText() {
+    const currentRoute = this.router.url;
+    if (currentRoute.includes('charts')) {
+      this.buttonText = 'Regresar a Gráficas en Vivo';
+    } else {
+      this.buttonText = 'Gráficas Históricas';
+    }
+  }
+  
+  // Modifica la acción del botón para cambiar entre rutas
+  toggleCharts() {
+    const currentRoute = this.router.url;
+    if (currentRoute.includes('charts')) {
+      this.router.navigate(['/live', this.monitorId]); // Navega a 'live' con el id del monitor
+    } else {
+      this.router.navigate(['/charts', this.monitorId]); // Navega a 'charts' con el id del monitor
+    }
   }
 }

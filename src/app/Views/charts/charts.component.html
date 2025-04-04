@@ -1,37 +1,34 @@
-<div class="admin-container mt-4">
-  <!-- Header titles -->
-  <div class="header-titles">
-    <div class="chart-title">Datos del sensor por hora</div>
-    <div class="chart-title">Selecciona un sensor y fecha para ver su información:</div>
-  </div>
-  
-  <!-- Selector controls -->
-  <div class="selector-controls">
-    <!-- Selector de sensor -->
-    <div class="status-filter">
-      <select class="select-styled" [(ngModel)]="sensorSeleccionado"
-  (change)="onSensorChange($event)">
-    <option *ngFor="let sensor of sensoresDisponibles" [value]="sensor.id">
-      {{sensor.Nombre_Sensor}}
-    </option>
-  </select>
-    </div>
-    <!-- Selector de fecha -->
-    <div class="status-filter">
-      <select class="select-styled" [(ngModel)]="fechaSeleccionada"
-      (change)="onFechaChange($event)">
-        <option *ngFor="let fecha of fechasDisponibles" [value]="fecha">
-          {{fecha}}
-        </option>
-      </select>
-    </div>
-  </div>
-  
-  <!-- Chart container -->
-  <div class="chart-wrapper">
-    <div class="chart-container">
-      <!-- Gráfica -->
-      <canvas id="MyChart"></canvas>
+<div class="lol">
+  <div class="background-overlay"></div>
+  <div class="container">
+    <div class="chart-wrapper">
+      <div class="chart-container">
+        <!-- Letrero encima de la gráfica -->
+        <div class="chart-header">
+          <div class="chart-title">Datos del sensor por hora</div>
+          <div class="chart-title">Selecciona un sensor y fecha para ver su información:</div>
+          <!-- Selector de sensor -->
+          <div class="select-container">
+            <select class="chart-title" [(ngModel)]="sensorSeleccionado" (change)="onSensorChange($event)">
+              <option *ngFor="let sensor of sensoresDisponibles" [value]="sensor.id">
+                {{sensor.Nombre_Sensor}}
+              </option>
+            </select>
+          </div>
+          <!-- Selector de fecha -->
+          <div class="select-container">
+            <select class="chart-title" [(ngModel)]="fechaSeleccionada" (change)="onFechaChange($event)">
+              <option *ngFor="let fecha of fechasDisponibles" [value]="fecha">
+                {{fecha}}
+              </option>
+            </select>
+          </div>
+          <!-- Botón para regresar -->
+          <button class="chart-title" (click)="regresarAGraficasEnVivo()">{{ buttonText }}</button>
+        </div>
+        <!-- Gráfica -->
+        <canvas id="MyChart"></canvas>
+      </div>
     </div>
   </div>
 </div>

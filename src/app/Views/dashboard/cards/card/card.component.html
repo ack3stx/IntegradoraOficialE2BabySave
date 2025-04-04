@@ -1,23 +1,26 @@
-<div class="monitor-card" (click)="datosMongo(item)">
+<div class="monitor-card">
     <div class="card">
-        <div class="card-block">
-            <h2>
-                <fa-icon class="facircle fa-2xs" [icon]="item.id == id_monitor ? fasolid : faCircle" [ngClass]="{'red-circle': item.id == id_monitor}"></fa-icon>
-                {{ item.Nombre_Monitor }}
-            </h2>
-            <h4 class="text-center">{{ item.Ubicacion }}</h4>
-
-            <div class="btn-container">
-                <button class="rounded-btn edit-btn" (click)="updateMonitor(item.id)">
-                    <fa-icon [icon]="faPen"></fa-icon>
-                </button>
-                <button class="rounded-btn delete-btn" (click)="deleteMonitor(item.id)">
-                    <fa-icon [icon]="faTrash"></fa-icon>
-                </button>
-                <button *ngIf="item.id == id_monitor" class="rounded-btn delete-btn" (click)="offBocina('0',$event)">
-                    <fa-icon [icon]="faPowerOff"></fa-icon>
-                </button>
-            </div>
+      <div class="card-block">
+        <h2>
+          <fa-icon class="facircle fa-2xs" [icon]="item.id == id_monitor ? fasolid : faCircle" [ngClass]="{'red-circle': item.id == id_monitor}"></fa-icon>
+          {{ item.Nombre_Monitor }}
+        </h2>
+        <h4 class="text-center">{{ item.Ubicacion }}</h4>
+        <!-- <p class="text-center text-muted">Haz clic para ver las gráficas</p> -->
+        <div class="btn-container">
+          <button class="rounded-btn edit-btn" (click)="updateMonitor(item.id)">
+            <fa-icon [icon]="faPen"></fa-icon>
+          </button>
+          <button class="rounded-btn delete-btn" (click)="deleteMonitor(item.id)">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+          <button *ngIf="item.id == id_monitor" class="rounded-btn delete-btn" (click)="offBocina('0', $event)">
+            <fa-icon [icon]="faPowerOff"></fa-icon>
+          </button>
+          <button class="rounded-btn chart-btn" (click)="datosMongo(item)">
+            <fa-icon [icon]="faChartLine"></fa-icon>
+          </button>
         </div>
+      </div>
     </div>
-</div>
+  </div>

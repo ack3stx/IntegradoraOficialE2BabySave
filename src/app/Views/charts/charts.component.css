@@ -1,124 +1,147 @@
-/* Container styling */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f0f8ff; /* Light blue background */
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
-.admin-container{
-  padding: 80px;
-  padding-top: 100px;
-}
-
-/* Header titles styling */
-.header-titles {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-/* Chart title styling */
-.chart-title {
-  background: linear-gradient(to right, #66ccff, #ebe5e5);
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  white-space: nowrap;
-}
-
-/* Selector controls styling */
-.selector-controls {
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-/* Status filter styling */
-.status-filter {
-  max-width: 200px;
+.lol{
   position: relative;
-  z-index: 2;
+  background-image: url('../../../../public/drawable/cielo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
-/* Select styling */
-.select-styled {
-  background: linear-gradient(to right, #66ccff, #ebe5e5);
-  color: #fffafa;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  border: none;
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 0;
 }
 
-.select-styled option {
+.chart-container {
+  margin: 20px auto;
+  padding: 24px;
+  position: relative;
+  width: 80vw;
+  max-width: 1000px;
+  height: 70vh;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   background-color: white;
-  color: #333;
+}
+
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  padding-top: 90px; 
+  margin-top: 50px;
+}
+
+.chart-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
   padding: 10px;
 }
 
-.select-styled:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(102, 204, 255, 0.5);
+.chart-title {
+  background: linear-gradient(to right, #4a90e2, #5cb3ff);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  max-width: 100%;
+  text-align: center;
+  flex-shrink: 0;
 }
 
-.select-styled:hover {
-  transform: scale(1.02);
+select.chart-title {
+  color: white;
+  background: linear-gradient(to right, #66ccff, #ebe5e5);
+  cursor: pointer;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  appearance: none;
 }
 
-/* Chart wrapper */
-.chart-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-/* Chart container */
-.chart-container {
-  width: 100%;
-  height: 500px;
+select.chart-title option {
+  color: #333;
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  padding: 20px;
 }
 
-/* Canvas sizing */
+button.chart-title {
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 6px 12px;
+  position: relative;
+  background: linear-gradient(to right, #4a90e2, #5cb3ff);
+  color: white;
+  border-radius: 12px;
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 8px; 
+}
+
+button.chart-title::after {
+  content: "\F12F"; 
+  font-family: "bootstrap-icons";
+  color: white;
+  font-size: 18px;
+  pointer-events: none; 
+}
+
+.select-container {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+}
+
+.select-container select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 35px; 
+  cursor: pointer;
+}
+
+.select-container::after {
+  content: "\F22A"; 
+  font-family: "bootstrap-icons";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  color: white;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 18px;
+}
+
 canvas {
   width: 100% !important;
-  height: 100% !important;
+  height: auto !important;
+  max-height: 450px;
+
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-  .header-titles,
-  .selector-controls {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .chart-title {
-    font-size: 16px;
-    padding: 8px 15px;
-  }
-  
-  .status-filter {
-    max-width: 100%;
-    width: 100%;
-  }
+#MyChart {
+  width: 100% !important;
+  height: 60vh !important;
+  max-height: 500px;
+  min-height: 300px;
+  margin: 0 auto;
+  display: block;
 }
