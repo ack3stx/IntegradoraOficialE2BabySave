@@ -4,7 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SensorInterface } from '../../core/models/sensor.interface';
 import { Router } from '@angular/router';
+import { MonitorService } from '../../core/services/monitores/monitor.service';
 import { ActivatedRoute } from '@angular/router'; // Importa ActivatedRoute
+import { MonitorModel } from '../../core/models/monitor.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-charts',
@@ -22,7 +25,11 @@ export class ChartsComponent implements OnInit {
   sensoresDisponibles: SensorInterface[] = [];
   buttonText: string = 'Regresar a Gráficas en Vivo'; 
   private router = inject(Router); // Inyecta el Router
-  private route = inject(ActivatedRoute); // Inyecta ActivatedRoute
+  private route = inject(ActivatedRoute);
+  isMonitorValid: boolean = false; // Nueva bandera para validar el monitor
+  noDataMessage: string = '';  // Inyecta ActivatedRoute
+ private monitorService = inject(MonitorService);
+ private toastr = inject(ToastrService) // Inyecta el servicio de monitores
 
   ngOnInit(): void {
     // Obtén el id del monitor desde la ruta
@@ -30,12 +37,7 @@ export class ChartsComponent implements OnInit {
     if (id) {
       this.monitorId = +id; // Asigna el id al monitorId
     }
-
-    this.generarUltimas5Fechas();
-    this.fechaSeleccionada = this.fechasDisponibles[0];
-    console.log('Sensor inicial:', this.sensorSeleccionado);
-    this.cargarDatosSensor();
-    this.cargarSensoresDisponibles();
+    this.monitoresUsuario()
   }
 
   // Método para regresar a las gráficas en vivo
@@ -97,4 +99,37 @@ export class ChartsComponent implements OnInit {
       }
     });
   }
+
+  monitoresUsuario() {
+      this.monitorService.getMonitores().subscribe(
+        (monitores: MonitorModel[]) => {
+          const monitorIds = monitores.map(monitor => monitor.id);
+          //console.log('IDs de los monitores del usuario:', monitorIds);
+  
+          const monitorIdNumber = Number(this.monitorId);
+  
+          // Validar si el monitorId actual está en la lista de IDs
+          if (monitorIdNumber && monitorIds.includes(monitorIdNumber)) {
+            this.isMonitorValid = true; // El monitor es válido
+            //console.log('El monitor ID es válido:', this.monitorId);
+            this.generarUltimas5Fechas();
+            this.fechaSeleccionada = this.fechasDisponibles[0];
+            console.log('Sensor inicial:', this.sensorSeleccionado);
+            this.cargarDatosSensor();
+            this.cargarSensoresDisponibles();
+            // Cargar datos solo si el monitor es válido
+            
+          } else {
+            this.isMonitorValid = false; // El monitor no es válido
+            this.noDataMessage = 'No hay información disponible'; // Mostrar mensaje
+            this.toastr.error('Monitor inválido', 'Error');
+            // console.error('El monitor ID no es válido:', this.monitorId);
+          }
+        },
+        error => {
+          console.error('Error al obtener los monitores del usuario:', error);
+          this.noDataMessage = 'No hay información disponible'; // Mostrar mensaje en caso de error
+        }
+      );
+    }
 }

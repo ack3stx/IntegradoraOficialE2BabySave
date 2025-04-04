@@ -3,6 +3,12 @@
   <div class="container">
     <div class="chart-wrapper">
       <div class="chart-container">
+
+        <div *ngIf="!isMonitorValid" class="no-data-wrapper">
+          <div class="no-data-message">
+            <p>{{ noDataMessage }}</p>
+          </div>
+        </div>
         <!-- Letrero encima de la gráfica -->
         <div class="chart-header">
           <div class="chart-title">Datos del sensor por hora</div>
